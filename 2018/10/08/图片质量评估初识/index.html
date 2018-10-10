@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="论文阅读," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="图像质量评估(https://zhuanlan.zhihu.com/p/24804170)图像纹理: 纹理是一种反映图像中同质现象的视觉特征，它体现了物体表面的具有缓慢变化或者周期性变化的表面结构组织排列属性. 纹理具有三大标志：某种局部序列性不断重复、非随机排列、纹理区域内大致为均匀的统一体.  纹理不同于灰度、颜色等图像特征，它通过像素及其周围空间邻域的灰度分布来表现，即：局部纹理信息。局部纹">
-<meta name="keywords" content="学习 思考">
+<meta name="keywords" content="论文阅读">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图片质量评估初识">
 <meta property="og:url" content="http://yoursite.com/2018/10/08/图片质量评估初识/index.html">
@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-7/83418945.jpg">
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-7/11043213.jpg">
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-7/47692357.jpg">
-<meta property="og:updated_time" content="2018-10-08T08:46:27.245Z">
+<meta property="og:updated_time" content="2018-10-10T14:00:37.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图片质量评估初识">
 <meta name="twitter:description" content="图像质量评估(https://zhuanlan.zhihu.com/p/24804170)图像纹理: 纹理是一种反映图像中同质现象的视觉特征，它体现了物体表面的具有缓慢变化或者周期性变化的表面结构组织排列属性. 纹理具有三大标志：某种局部序列性不断重复、非随机排列、纹理区域内大致为均匀的统一体.  纹理不同于灰度、颜色等图像特征，它通过像素及其周围空间邻域的灰度分布来表现，即：局部纹理信息。局部纹">
@@ -102,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -205,6 +205,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -242,7 +252,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -367,6 +377,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/论文阅读/" rel="tag"># 论文阅读</a>
+          
+        </div>
+      
 
       
       
@@ -473,10 +489,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
@@ -545,7 +561,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -592,10 +608,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -637,12 +652,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -657,6 +667,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

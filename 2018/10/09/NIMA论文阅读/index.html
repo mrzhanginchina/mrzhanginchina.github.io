@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-CN">
+<html class="theme-next pisces use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-9/92647335.jpg">
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-9/63241072.jpg">
 <meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-9/41709321.jpg">
-<meta property="og:updated_time" content="2018-10-09T10:16:46.420Z">
+<meta property="og:updated_time" content="2018-10-10T14:01:00.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NIMA论文阅读">
 <meta name="twitter:description" content="NIMA: Neural Image Assessment总览:这篇文章主要讲了谷歌的团队使用Inception V2的卷积设计和mobilenet的卷积设计和VGG19的方式设计了一个可以自动评估图像美观和质量的神经网络模型.其主要的创新点是:  用输出评分分布区间的方式取代直接回归图片质量的评分均值, 因为一张图片, 不同的看会有不同的感受, 这样做更符合真实. 最后发现使用这种方式不仅可以更">
@@ -104,7 +104,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -207,6 +207,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -244,7 +254,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -499,10 +509,10 @@ Hash-Map <i class="fa fa-chevron-right"></i>
               
               
               <div class="site-state-item site-state-tags">
-                
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
-                
+                </a>
               </div>
             
 
@@ -571,7 +581,7 @@ Hash-Map <i class="fa fa-chevron-right"></i>
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -618,10 +628,9 @@ Hash-Map <i class="fa fa-chevron-right"></i>
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -663,12 +672,7 @@ Hash-Map <i class="fa fa-chevron-right"></i>
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -683,6 +687,13 @@ Hash-Map <i class="fa fa-chevron-right"></i>
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
