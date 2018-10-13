@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="python中的数据持久化存储(h5, pickle, shelve)shelve– 用来持久化任意的python对象. 使用比pickle简单一点, 是关系型数据库中的简单的替代品. shelve是使用key值来进行访问的, 使用起来和字典类似, shelve实际上是使用anybm去创建的DB, 并且持久化管理对象. 创建一个新的shelve对象:1234567import shelves =">
+<meta name="keywords" content="基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python数据持久化">
+<meta property="og:url" content="http://yoursite.com/2018/10/13/python数据持久化/index.html">
+<meta property="og:site_name" content="张伟栋的学习之路">
+<meta property="og:description" content="python中的数据持久化存储(h5, pickle, shelve)shelve– 用来持久化任意的python对象. 使用比pickle简单一点, 是关系型数据库中的简单的替代品. shelve是使用key值来进行访问的, 使用起来和字典类似, shelve实际上是使用anybm去创建的DB, 并且持久化管理对象. 创建一个新的shelve对象:1234567import shelves =">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-13T15:28:16.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python数据持久化">
+<meta name="twitter:description" content="python中的数据持久化存储(h5, pickle, shelve)shelve– 用来持久化任意的python对象. 使用比pickle简单一点, 是关系型数据库中的简单的替代品. shelve是使用key值来进行访问的, 使用起来和字典类似, shelve实际上是使用anybm去创建的DB, 并且持久化管理对象. 创建一个新的shelve对象:1234567import shelves =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/13/python数据持久化/"/>
+
+
+
+
+
+  <title>python数据持久化 | 张伟栋的学习之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张伟栋的学习之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录学习成长的过程</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/13/python数据持久化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python数据持久化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-13T23:27:21+08:00">
+                2018-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="python中的数据持久化存储-h5-pickle-shelve"><a href="#python中的数据持久化存储-h5-pickle-shelve" class="headerlink" title="python中的数据持久化存储(h5, pickle, shelve)"></a>python中的数据持久化存储(h5, pickle, shelve)</h1><h2 id="shelve–-用来持久化任意的python对象"><a href="#shelve–-用来持久化任意的python对象" class="headerlink" title="shelve– 用来持久化任意的python对象."></a>shelve– 用来持久化任意的python对象.</h2><ul>
+<li>使用比pickle简单一点, 是关系型数据库中的简单的替代品.</li>
+<li><p>shelve是使用key值来进行访问的, 使用起来和字典类似, shelve实际上是使用anybm去创建的DB, 并且持久化管理对象.</p>
+<h3 id="创建一个新的shelve对象"><a href="#创建一个新的shelve对象" class="headerlink" title="创建一个新的shelve对象:"></a>创建一个新的shelve对象:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import shelve</span><br><span class="line"></span><br><span class="line">s = shelve.open(&apos;test_shelf.db&apos;)</span><br><span class="line">try:</span><br><span class="line">    s[&apos;key1&apos;] = &#123; &apos;int&apos;: 10, &apos;float&apos;:9.5, &apos;string&apos;:&apos;Sample data&apos; &#125;</span><br><span class="line">finally:</span><br><span class="line">    s.close()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shelve对象的创建较为简单, 直接使用open方法打开一个数据库即可, 在数据库名字中添加上数据的地址和具体名称.</p>
+</li>
+<li>创建好的数据库使用和字典的方式较为相似, 后面的数据使用字典的存储方式.</li>
+<li>如果需要再次访问这个数据, 只需要再次使用shelve.open()将文件打开即可</li>
+</ul>
+<h4 id="DBM后台模块不支持多个应用同一时间写入操作-有锁"><a href="#DBM后台模块不支持多个应用同一时间写入操作-有锁" class="headerlink" title="DBM后台模块不支持多个应用同一时间写入操作(有锁)"></a>DBM后台模块不支持多个应用同一时间写入操作(有锁)</h4><ul>
+<li>如果一个文件只需要进行读取操作, 那么可以将文件的打开方式设置为只读模式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = shelve.open(&apos;test.db&apos;, flag=&apos;r&apos;)</span><br><span class="line"># 其中flag的取值主要有四种: </span><br><span class="line"># flag = c, 代表可以读写一个新的或者是已经存在的数据库(存在就打开, 不存在就创建), 这是默认模式.</span><br><span class="line"># flag = n, 当时用这种模式时候, 数据库总是创建一个新的数据库, 而不是去打开旧的数据库.</span><br><span class="line"># flag = r, 当时用这种模式时候, 数据库是只读的.</span><br><span class="line"># flag = w, 当时用这种模式时候, 只能打开已经存在的数据库, 如果数据库不存在就会报错.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="shelve对象的写回操作"><a href="#shelve对象的写回操作" class="headerlink" title="shelve对象的写回操作"></a>shelve对象的写回操作</h3><ul>
+<li>shelve在默认情况下不会记录持久化对象的任何修改, 所以在使用shelve.open()时候, 如果不添加writeback=True, 那么在更改shelve中数据的时候, 更改的数据不会被保存. <strong>这里的数据表变化的含义是已经有的存储对象中值发生了变化, 而不是说新创建一个键值对.</strong></li>
+<li>当吧writeback设置为true后, shelf将会将所有的从DB中读取的对象存放在一个内存缓存中, 当我们close一个shelve时候, 缓存中的所有的对象都会被重新写入DB当中.</li>
+<li>writeback方式有优点也有缺点.<ul>
+<li>优点是减少了我们出错的概率，并且让对象的持久化对用户更加的透明了.</li>
+<li>但这种方式并不是所有的情况下都需要，首先，使用writeback以后，shelf在open()的时候会增加额外的内存消, 并且当DB在close()的时候会将缓存中的每一个对象都写入到DB, 这也会带来额外的等待时间. (因为shelve没有办法知道缓存中哪些对象修改了, 哪些对象没有修改, 因此所有的对象都会被写入.)</li>
+</ul>
+</li>
+</ul>
+<h3 id="shelve对象的删除操作"><a href="#shelve对象的删除操作" class="headerlink" title="shelve对象的删除操作:"></a>shelve对象的删除操作:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">del shelve[&quot;key&quot;]</span><br><span class="line"># 这种方式可以直接删除一条记录.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>shelve可以理解为一个字典, 通过shelve.keys()可以直接拿到shelve中所有的键值对.</li>
+<li>通过 下面这种方式可以遍历一个shelve中所有的数据.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for item in sh.items():</span><br><span class="line">    print(&apos;键[&#123;&#125;] = 值[&#123;&#125;]&apos;.format(item[0], sh[item[0]]))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="pickle模块-Python最基本的数据持久化存储工具"><a href="#pickle模块-Python最基本的数据持久化存储工具" class="headerlink" title="pickle模块. Python最基本的数据持久化存储工具."></a>pickle模块. Python最基本的数据持久化存储工具.</h2><ul>
+<li>pickle 简单理解就是一个复杂的shelve.</li>
+<li><p>pickle.dump(obj, file, protocol=None,)</p>
+<ul>
+<li><p>必填参数obj表示将要封装的对象</p>
+</li>
+<li><p>必填参数file表示obj要写入的文件对象，file必须以二进制可写模式打开，即“wb”</p>
+</li>
+<li><p>可选参数protocol表示告知pickler使用的协议，支持的协议有0,1,2,3，默认的协议是添加在Python 3中的协议3.</p>
+</li>
+</ul>
+</li>
+<li>pickle.load(file,*,fix_imports=True, encoding=”ASCII”, errors=”strict”)<ul>
+<li>必填参数file必须以二进制可读模式打开，即“rb”，其他都为可选参数.</li>
+</ul>
+</li>
+<li>pickle.dumps(obj)：以字节对象形式返回封装的对象，不需要写入文件中.</li>
+<li>pickle.loads(bytes_object): 从字节对象中读取被封装的对象，并返回.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># dumps功能</span><br><span class="line">import pickle</span><br><span class="line">data = [&apos;aa&apos;, &apos;bb&apos;, &apos;cc&apos;]  </span><br><span class="line"># dumps 将数据通过特殊的形式转换为只有python语言认识的字符串</span><br><span class="line">p_str = pickle.dumps(data)</span><br><span class="line">print(p_str)            </span><br><span class="line">&gt;&gt;&gt;b&apos;\x80\x03]q\x00(X\x02\x00\x00\x00aaq\x01X\x02\x00\x00\x00bbq\x02X\x02\x00\x00\x00ccq\x03e.</span><br><span class="line"></span><br><span class="line"># loads功能</span><br><span class="line"># loads  将pickle数据转换为python的数据结构</span><br><span class="line">mes = pickle.loads(p_str)</span><br><span class="line">print(mes)</span><br><span class="line">&gt;&gt;&gt;[&apos;aa&apos;, &apos;bb&apos;, &apos;cc&apos;]</span><br><span class="line"></span><br><span class="line"># dump功能</span><br><span class="line"># dump 将数据通过特殊的形式转换为只有python语言认识的字符串，并写入文件</span><br><span class="line">with open(&apos;D:/tmp.pk&apos;, &apos;w&apos;) as f:</span><br><span class="line">    pickle.dump(data, f)</span><br><span class="line"></span><br><span class="line"># load功能</span><br><span class="line"># load 从数据文件中读取数据，并转换为python的数据结构</span><br><span class="line">with open(&apos;D:/tmp.pk&apos;, &apos;r&apos;) as f:</span><br><span class="line">    data = pickle.load(f)</span><br></pre></td></tr></table></figure>
+<h2 id="h5py模块使用-这个模块比较适合科学计算-即和numpy进行搭配使用"><a href="#h5py模块使用-这个模块比较适合科学计算-即和numpy进行搭配使用" class="headerlink" title="h5py模块使用(这个模块比较适合科学计算, 即和numpy进行搭配使用):"></a>h5py模块使用(这个模块比较适合科学计算, 即和numpy进行搭配使用):</h2><ul>
+<li>一个HDF5文件是一种存放两类对象的容器：dataset和group.</li>
+<li>Dataset是类似于数组的数据集，而group是类似文件夹一样的容器，存放dataset和其他group。在使用h5py的时候需要牢记一句话：groups类比词典，dataset类比Numpy中的数组.</li>
+</ul>
+<h3 id="文件的打开"><a href="#文件的打开" class="headerlink" title="文件的打开:"></a>文件的打开:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import h5py</span><br><span class="line">f = h5py.File(&quot;file name&quot;, &quot;r&quot;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>由于h5py文件类似于python中的字典对象, 所以可以使用f.keys()直接访问文件中的所有的键值对.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f.keys()</span><br><span class="line">&gt;&gt;&gt; [u&apos;mydataset&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从h5文件中拿到的数据是一个dataset对象, 我们可以像访问Numpy的数组一样访问他的属性和数据.</p>
+</li>
+</ul>
+<h3 id="创建一个h5文件"><a href="#创建一个h5文件" class="headerlink" title="创建一个h5文件:"></a>创建一个h5文件:</h3><ul>
+<li><p>使用w模式打开一个文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import h5py</span><br><span class="line">import numpy as np</span><br><span class="line">f = h5py.File(&quot;mytestfile.hdf5&quot;, &quot;w&quot;)</span><br><span class="line"></span><br><span class="line">dset = f.create_dataset(&quot;mydataset&quot;, (100,), dtype=&apos;i&apos;)</span><br><span class="line"># 或者也可以使用Numpy数组来初始化一个dataset</span><br><span class="line">arr = np.arange(100)</span><br><span class="line">dset = f.create_dataset(&quot;init&quot;, data=arr)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在缺省设置下, HDF5数据集在内存中是连续布局的, 也就是按照传统的C序. </p>
+</li>
+<li>Dataset也可以在HDF5的分块存储布局下创建, 也就是dataset被分为大小相同的若干块随意地分布在磁盘上, 并使用B树建立索引.</li>
+</ul>
+<h3 id="HDF5文件的分层结构"><a href="#HDF5文件的分层结构" class="headerlink" title="HDF5文件的分层结构:"></a>HDF5文件的分层结构:</h3><ul>
+<li>“HDF”代表”Hierarchical Data Format”(分层数据格式). </li>
+<li><p>HDF5文件中group对象类似于文件夹，我们创建的文件对象本身就是一个group，称为root group.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f.name</span><br><span class="line">&gt;&gt;&gt; u&apos;/&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建subgroup是使用create_group的方法实现的, 在创建之前, 需要将文件使用读写模式打开.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = h5py.File(&apos;mydataset.hdf5&apos;, &apos;r+&apos;)</span><br><span class="line">&gt;&gt;&gt; grp = f.create_group(&quot;subgroup&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了遍历一个group内的所有直接和间接成员，我们可以使用group的visit()和visititerms()方法，这些方法需要接收一个回调函数作为参数。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def printname(name):</span><br><span class="line">    print name</span><br><span class="line">f.visit(printname)</span><br><span class="line">&gt;&gt;&gt;mydataset</span><br><span class="line">&gt;&gt;&gt;subgroup</span><br><span class="line">&gt;&gt;&gt;subgroup/another_dataset</span><br><span class="line">&gt;&gt;&gt;subgroup2</span><br><span class="line">&gt;&gt;&gt;subgroup2/dataset_three</span><br></pre></td></tr></table></figure>
+<ul>
+<li>HDF5的一个很棒的特点是你可以在数据旁边存储元数据。所有的group和dataset都支持叫做属性的数据形式。属性通过attrs成员访问，类似于python中词典格式。</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础学习/" rel="tag"># 基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/Hash算法和Hash-Map/" rel="next" title="Hash算法和
+Hash-Map">
+                <i class="fa fa-chevron-left"></i> Hash算法和
+Hash-Map
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weidong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python中的数据持久化存储-h5-pickle-shelve"><span class="nav-number">1.</span> <span class="nav-text">python中的数据持久化存储(h5, pickle, shelve)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shelve–-用来持久化任意的python对象"><span class="nav-number">1.1.</span> <span class="nav-text">shelve– 用来持久化任意的python对象.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新的shelve对象"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建一个新的shelve对象:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DBM后台模块不支持多个应用同一时间写入操作-有锁"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">DBM后台模块不支持多个应用同一时间写入操作(有锁)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shelve对象的写回操作"><span class="nav-number">1.1.2.</span> <span class="nav-text">shelve对象的写回操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shelve对象的删除操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">shelve对象的删除操作:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pickle模块-Python最基本的数据持久化存储工具"><span class="nav-number">1.2.</span> <span class="nav-text">pickle模块. Python最基本的数据持久化存储工具.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#h5py模块使用-这个模块比较适合科学计算-即和numpy进行搭配使用"><span class="nav-number">1.3.</span> <span class="nav-text">h5py模块使用(这个模块比较适合科学计算, 即和numpy进行搭配使用):</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的打开"><span class="nav-number">1.3.1.</span> <span class="nav-text">文件的打开:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个h5文件"><span class="nav-number">1.3.2.</span> <span class="nav-text">创建一个h5文件:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDF5文件的分层结构"><span class="nav-number">1.3.3.</span> <span class="nav-text">HDF5文件的分层结构:</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weidong Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
