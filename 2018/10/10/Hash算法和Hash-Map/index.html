@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Hash算法与Hash-Map:什么是hash算法: hash算法是将一系列的较长的二进制数据转换为较短的二进制数据的一种方法.  hash算法的两个特点: 不可逆和无冲突. 不可逆: 当知道一个数据X的hash值之后, 不能根据hash数值反向推测出X的数值. 无冲突: 如果两个数据X和Y的值不同, 则hash(X)和hash(Y)一定不相同. 上面的两个特点在数学上都是不成立的, 目前通用的h">
+<meta name="keywords" content="基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hash算法和
+Hash-Map">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/Hash算法和Hash-Map/index.html">
+<meta property="og:site_name" content="张伟栋的学习之路">
+<meta property="og:description" content="Hash算法与Hash-Map:什么是hash算法: hash算法是将一系列的较长的二进制数据转换为较短的二进制数据的一种方法.  hash算法的两个特点: 不可逆和无冲突. 不可逆: 当知道一个数据X的hash值之后, 不能根据hash数值反向推测出X的数值. 无冲突: 如果两个数据X和Y的值不同, 则hash(X)和hash(Y)一定不相同. 上面的两个特点在数学上都是不成立的, 目前通用的h">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-11/56319967.jpg">
+<meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-11/38154584.jpg">
+<meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-11/18670180.jpg">
+<meta property="og:updated_time" content="2018-10-11T13:56:28.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hash算法和
+Hash-Map">
+<meta name="twitter:description" content="Hash算法与Hash-Map:什么是hash算法: hash算法是将一系列的较长的二进制数据转换为较短的二进制数据的一种方法.  hash算法的两个特点: 不可逆和无冲突. 不可逆: 当知道一个数据X的hash值之后, 不能根据hash数值反向推测出X的数值. 无冲突: 如果两个数据X和Y的值不同, 则hash(X)和hash(Y)一定不相同. 上面的两个特点在数学上都是不成立的, 目前通用的h">
+<meta name="twitter:image" content="http://on40yf25i.bkt.clouddn.com/18-10-11/56319967.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/10/Hash算法和Hash-Map/"/>
+
+
+
+
+
+  <title>Hash算法和
+Hash-Map | 张伟栋的学习之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张伟栋的学习之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录学习成长的过程</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/Hash算法和Hash-Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hash算法和
+Hash-Map</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-10T21:41:39+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Hash算法与Hash-Map"><a href="#Hash算法与Hash-Map" class="headerlink" title="Hash算法与Hash-Map:"></a>Hash算法与Hash-Map:</h1><h2 id="什么是hash算法"><a href="#什么是hash算法" class="headerlink" title="什么是hash算法:"></a>什么是hash算法:</h2><ul>
+<li>hash算法是将一系列的较长的二进制数据转换为较短的二进制数据的一种方法. </li>
+<li>hash算法的两个特点: <strong>不可逆</strong>和<strong>无冲突</strong>.</li>
+<li>不可逆: 当知道一个数据X的hash值之后, 不能根据hash数值反向推测出X的数值.</li>
+<li>无冲突: 如果两个数据X和Y的值不同, 则hash(X)和hash(Y)一定不相同.</li>
+<li>上面的两个特点在数学上都是不成立的, 目前通用的hash加密方法例如MD5和SHA等方法都是将逆向破解的代价变成无穷大.</li>
+<li>hash算法的应用主要是校验和加密. 例如: 可以利用hash算法判断几个文件是否是同一个文件. 网站注册用户名和密码时候, 可以只保存用户密码的hash值, 通过这种方式可以有效地避免账号被盗用等不安全因素.</li>
+</ul>
+<h2 id="Hash-Map数据结构"><a href="#Hash-Map数据结构" class="headerlink" title="Hash-Map数据结构:"></a>Hash-Map数据结构:</h2><ul>
+<li>hash-map算法中, 空间一定是大于原始数据的空间大小的. 这点和hash算法正好相反, 因为hash算法是将大的数据空间映射到小的空间范围当中去.</li>
+<li>通过hash算法直接定位key值在数据库中的位置的数据结构叫做hash-map, hash-map的遍历代价可以看做是O(1), 是一种典型的空间换时间的数据结构.</li>
+<li>负载因子: 如果需要存储70个数据, 但是在内存中申请了100个空间, 那么我们可以说空间的负载因子是0.7.</li>
+<li>hash-map中经常出现冲突现象, 即几个不同的key值一直映射到了相同的hash值上, 解决hash冲突主要有两种方法, 一种是hash链表, 即将固定空间变为一个链表, 如果hash值冲突, 在将新的数据附加在链表的尾部. 另外一种是hash函数双散列方法: 即在进行hash运算时候考虑碰撞次数, 通过这种方式一直找到不碰撞的存储空间.</li>
+</ul>
+<h3 id="经常用到的hash函数方法"><a href="#经常用到的hash函数方法" class="headerlink" title="经常用到的hash函数方法:"></a>经常用到的hash函数方法:</h3><ul>
+<li>直接寻址法：取key或key的某个线性函数值为散列地址。即H(key)=key或H(key) = a•key + b，当中a和b为常数(这样的散列函数叫做自身函数).</li>
+<li>数字分析法：分析一组数据，因此数字分析法就是找出数字的规律，尽可能利用这些数据来构造冲突几率较低的散列地址. 例如如果按照员工的的国家地来构造hash, 那么冲突的可能性非常大, 但是如果使用员工的出生的乡镇名字来构造hash, 那么冲突的可能性就大大的减小了.</li>
+<li>平方取中法：取key平方后的中间几位作为散列地址。</li>
+<li>除留余数法：取key被某个不大于散列表表长m的数p除后所得的余数为散列地址。即 H(key) = key MOD p, p&lt;=m。不仅能够对keyword直接取模，也可在折叠、平方取中等运算之后取模。对p的选择非常重要，一般取素数或m，若p选的不好，非常容易产生同义词.</li>
+</ul>
+<h1 id="局部敏感hash算法LSH算法"><a href="#局部敏感hash算法LSH算法" class="headerlink" title="局部敏感hash算法LSH算法:"></a>局部敏感hash算法LSH算法:</h1><h2 id="LSH的基本思想是："><a href="#LSH的基本思想是：" class="headerlink" title="LSH的基本思想是："></a>LSH的基本思想是：</h2><ul>
+<li>将原始数据空间中的两个相邻数据点通过相同的映射或投影变换（projection）后，这两个数据点在新的数据空间中仍然相邻的概率很大，而不相邻的数据点被映射到同一个桶的概率很小。也就是说，如果我们对原始数据进行一些hash映射后，我们希望原先相邻的两个数据能够被hash到相同的桶内，具有相同的桶号.</li>
+</ul>
+<h3 id="d1-d2-p1-p2-sensitive"><a href="#d1-d2-p1-p2-sensitive" class="headerlink" title="(d1,d2,p1,p2)-sensitive"></a>(d1,d2,p1,p2)-sensitive</h3><p>如果一个函数满足以下条件, 那么就可以称为(d1,d2,p1,p2)-sensitive</p>
+<ol>
+<li><p>如果d(x,y) ≤ d1， 则h(x) = h(y)的概率至少为p1；</p>
+</li>
+<li><p>如果d(x,y) ≥ d2， 则h(x) = h(y)的概率至多为p2；</p>
+</li>
+</ol>
+<p>其中d(x,y)表示x和y之间的距离，d1 &lt; d2， h(x)和h(y)分别表示对x和y进行hash变换.</p>
+<p><strong>而通过一个或多个(d1,d2,p1,p2)-sensitive的hash function对原始数据集合进行hashing生成一个或多个hash table的过程称为Locality-sensitive Hashing。</strong></p>
+<h2 id="使用LSH对数据建立索引-并通过索引进行近似最近邻查找的过程如下"><a href="#使用LSH对数据建立索引-并通过索引进行近似最近邻查找的过程如下" class="headerlink" title="使用LSH对数据建立索引, 并通过索引进行近似最近邻查找的过程如下:"></a>使用LSH对数据建立索引, 并通过索引进行近似最近邻查找的过程如下:</h2><ul>
+<li>选取合适的hash函数.</li>
+<li>确定hash table的个数L, 同时确定每一个table中hash function的个数.</li>
+<li>组件hash表.</li>
+<li>查找: <ul>
+<li>将查询数据经过LSH hash function进行运算, 从而得到相应的桶号.</li>
+<li>将每一个桶号中的数据取出(一般取出前2L个数据)</li>
+<li>计算查询数据和取出的2L个数据之间的相似程度或者距离, 返回结果.</li>
+</ul>
+</li>
+<li><strong>LSH不保证可以一定找到最相邻的数据, 但是大大加快了查找时间, 同时能够查找出符合要求的数据的概率很大.</strong></li>
+</ul>
+<h1 id="LSH的具体应用"><a href="#LSH的具体应用" class="headerlink" title="LSH的具体应用:"></a>LSH的具体应用:</h1><p>凡是需要进行大量数据之间的相似度(或距离)计算的地方都可以使用LSH来加快查找匹配速度.</p>
+<h2 id="查找网页中的重复网页"><a href="#查找网页中的重复网页" class="headerlink" title="查找网页中的重复网页:"></a>查找网页中的重复网页:</h2><p>互联网上由于各式各样的原因（例如转载、抄袭等）会存在很多重复的网页，因此为了提高搜索引擎的检索质量或避免重复建立索引，需要查找出重复的网页.</p>
+<h3 id="simhash-主要参考https-yanyiwu-com-work-2014-01-30-simhash-shi-xian-xiang-jie-html"><a href="#simhash-主要参考https-yanyiwu-com-work-2014-01-30-simhash-shi-xian-xiang-jie-html" class="headerlink" title="simhash: (主要参考https://yanyiwu.com/work/2014/01/30/simhash-shi-xian-xiang-jie.html)"></a>simhash: (主要参考<a href="https://yanyiwu.com/work/2014/01/30/simhash-shi-xian-xiang-jie.html" target="_blank" rel="noopener">https://yanyiwu.com/work/2014/01/30/simhash-shi-xian-xiang-jie.html</a>)</h3><ul>
+<li>本方法是google在2007年发表论文<detecting near-duplicates="" for="" web="" crawling="">中提出的一种指纹生成算法, 或者是指纹提取算法. <strong>主要思想是降低维度</strong><h4 id="如何获得文档的hash值"><a href="#如何获得文档的hash值" class="headerlink" title="如何获得文档的hash值."></a>如何获得文档的hash值.</h4><img src="http://on40yf25i.bkt.clouddn.com/18-10-11/56319967.jpg" alt=""><br><img src="http://on40yf25i.bkt.clouddn.com/18-10-11/38154584.jpg" alt=""></detecting></li>
+<li>将Doc进行关键词抽取(其中包括分词和计算权重)，抽取出n个(关键词，权重)对， 即图中的(feature, weight)们。 记为  feature_weight_pairs = [fw1, fw2 … fwn]，其中 fwn = (feature_n,weight_n`)。</li>
+<li>hash_weight_pairs = [ (hash(feature), weight) for feature, weight in  feature_weight_pairs ] 生成图中的(hash,weight)们, 此时假设hash生成的位数bits_count = 6（如图）;</li>
+<li>然后对 hash_weight_pairs 进行位的纵向累加，如果该位是1，则+weight,如果是0，则-weight，最后生成bits_count个数字，如图所示是[13, 108, -22, -5, -32, 55], 这里产生的值和hash函数所用的算法相关。</li>
+<li>[13,108,-22,-5,-32,55] -&gt; 110001这个就很简单啦，正1负0。</li>
+</ul>
+<h4 id="simhash的汉明距离的计算"><a href="#simhash的汉明距离的计算" class="headerlink" title="simhash的汉明距离的计算:"></a>simhash的汉明距离的计算:</h4><p>直接对A和B两个二进制数据进行异或操作, 统计其中的1的个数就行.</p>
+<ul>
+<li>如何使用O(1)复杂度统计二进制中1的个数: ?</li>
+</ul>
+<h4 id="google提出的计算方法"><a href="#google提出的计算方法" class="headerlink" title="google提出的计算方法:"></a>google提出的计算方法:</h4><ul>
+<li>google的论文给出的数据中，64位的签名，在海明距离为3的情况下，可认为两篇文档是相似的或者是重复的</li>
+<li>如果每一条新的数据都和数据库中所有的已经存在的数据进行对比的话, 那么代价开销太大, 为此特意提出抽屉原理(鸽巢原理)进行解决.</li>
+<li>抽屉原理: 如果十个苹果放在九个抽屉中, 那么肯定有两个苹果在同一个抽屉中.</li>
+<li>将所有的64位的签名都截断成为四个16位的数据, 通过KV数据库进行存放: K为16位截断指纹，V为K相等时剩余的48位指纹集合.</li>
+<li>在查询过程中, 分别匹配四个截断指纹, 将返回的结果组装成为一个新的数据集, 在这个数据集中进行对比操作.<br><img src="http://on40yf25i.bkt.clouddn.com/18-10-11/18670180.jpg" alt=""></li>
+<li>假设样本库，有2^34条数据（171亿数据），假设数据均匀分布，则每个16位（16个01数字随机组成的组合为2^16个）倒排返回的最大数量为<br>2^34/2^16=2^(34-16)=262144个候选结果，4个16位截断索引，总的结果为：4*262144=1048576，约为100多万，通过<br>这样一来的降维处理，原来需要比较171亿次，现在只需要比较100万次即可得到结果，这样以来大大提升了计算效率.<h4 id="百度使用的文章重复检测方式"><a href="#百度使用的文章重复检测方式" class="headerlink" title="百度使用的文章重复检测方式:"></a>百度使用的文章重复检测方式:</h4></li>
+<li>直接取出文章中最长的三个句子, 计算hash数值, 对比两个文章中hash数值的从而判断是否为同一篇文章.</li>
+</ul>
+<h2 id="图像检索"><a href="#图像检索" class="headerlink" title="图像检索:"></a>图像检索:</h2><h3 id="最简单的方法-感知哈希算法-Perceptual-hash-algorithm"><a href="#最简单的方法-感知哈希算法-Perceptual-hash-algorithm" class="headerlink" title="最简单的方法: 感知哈希算法(Perceptual hash algorithm)"></a>最简单的方法: 感知哈希算法(Perceptual hash algorithm)</h3><p>对每一张图片生成一个暗纹(fingerprint), 然后比较不同的图片之间暗纹的不同, 结果约相近, 说明图片的相似性越高.</p>
+<ol>
+<li>缩小尺寸: 将图片缩小为8*8 的尺寸, 一共含有64个像素.</li>
+<li>简化色彩: 将缩小后的图片转换为64级灰度.</li>
+<li>计算64个像素的平均值.</li>
+<li>将每一个像素的灰度值大小与平均值进行比较, 大于或者等于平均值的记为1, 否则为0.</li>
+<li>将上面的64个整数组合在一起,最终形成这幅图像的暗纹.</li>
+<li>得到暗纹之后, 计算两幅图像之间的汉明距离, 从而判断两幅图像是否相似. 一般认为hamming小于5, 则两个图片的相似度较高.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">from functools import reduce</span><br><span class="line">import glob</span><br><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">from PIL import Image</span><br><span class="line"></span><br><span class="line">EXTS = &apos;jpg&apos;, &apos;jpeg&apos;, &apos;JPG&apos;, &apos;JPEG&apos;, &apos;gif&apos;, &apos;GIF&apos;, &apos;png&apos;, &apos;PNG&apos;</span><br><span class="line"></span><br><span class="line">def avhash(im):</span><br><span class="line">    if not isinstance(im, Image.Image):</span><br><span class="line">        im = Image.open(im)</span><br><span class="line">    im = im.resize((8, 8), Image.ANTIALIAS).convert(&apos;L&apos;)</span><br><span class="line">    avg = reduce(lambda x, y: x + y, im.getdata()) / 64.</span><br><span class="line">    # &lt;&lt;是python中左移运算符, 运算数的各二进制位全部左移若干位, &lt;&lt;右边的数字制定了移动多少位, 高位丢弃, 低位补零.</span><br><span class="line">    # | 按位或运算, 只要两个二进制位有一个为1, 结果就是1.</span><br><span class="line">    return reduce(lambda x, y, z: x | (z &lt;&lt; y),</span><br><span class="line">                  enumerate(map(lambda i: 0 if i &lt; avg else 1, im.getdata())),</span><br><span class="line">                  0)</span><br><span class="line"></span><br><span class="line">def hamming(h1, h2):</span><br><span class="line">    h, d = 0, h1 ^ h2</span><br><span class="line">    # ^ 是python中的按位亦或运算符, 当二进制位相异时为1.</span><br><span class="line">    while d:</span><br><span class="line">        h += 1</span><br><span class="line">        d &amp;= d - 1</span><br><span class="line">        # &amp;, python中的按位与运算符.</span><br><span class="line">    return h</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    if len(sys.argv) &lt;= 1 or len(sys.argv) &gt; 3:</span><br><span class="line">        print (&quot;Usage: %s image.jpg [dir]&quot; % sys.argv[0])</span><br><span class="line">    else:</span><br><span class="line">        im, wd = sys.argv[1], &apos;.&apos; if len(sys.argv) &lt; 3 else sys.argv[2]</span><br><span class="line">        h = avhash(im)</span><br><span class="line"></span><br><span class="line">        os.chdir(wd)</span><br><span class="line">        images = []</span><br><span class="line">        for ext in EXTS:</span><br><span class="line">            images.extend(glob.glob(&apos;*.%s&apos; % ext))</span><br><span class="line"></span><br><span class="line">        seq = []</span><br><span class="line">        prog = int(len(images) &gt; 50 and sys.stdout.isatty())</span><br><span class="line">        for f in images:</span><br><span class="line">            seq.append((f, hamming(avhash(f), h)))</span><br><span class="line">            if prog:</span><br><span class="line">                perc = 100. * prog / len(images)</span><br><span class="line">                x = int(2 * perc / 5)</span><br><span class="line">                print (&apos;\rCalculating... [&apos; + &apos;#&apos; * x + &apos; &apos; * (40 - x) + &apos;]&apos;),</span><br><span class="line">                print (&apos;%.2f%%&apos; % perc, &apos;(%d/%d)&apos; % (prog, len(images))),</span><br><span class="line">                sys.stdout.flush()</span><br><span class="line">                prog += 1</span><br><span class="line"></span><br><span class="line">        if prog: print</span><br><span class="line">        for f, ham in sorted(seq, key=lambda i: i[1]):</span><br><span class="line">            print (&quot;%d\t%s&quot; % (ham, f))</span><br></pre></td></tr></table></figure>
+<h3 id="基于颜色分布直方图的相似度检测"><a href="#基于颜色分布直方图的相似度检测" class="headerlink" title="基于颜色分布直方图的相似度检测:"></a>基于颜色分布直方图的相似度检测:</h3><ul>
+<li>将0~255的范围规划为四个区间: 0～63为第0区，64～127为第1区，128～191为第2区，192～255为第3区.</li>
+<li>一个图片将拥有4的3次方种颜色, 将这64种颜色对应的像素值分布做一个统计, 可以得到一个图片的暗纹.</li>
+<li>之后使用协方差的方式估算两张图片之间的相似性.</li>
+</ul>
+<h3 id="内容特征法"><a href="#内容特征法" class="headerlink" title="内容特征法:"></a>内容特征法:</h3><p>如果两张图片的内容较为相似, 那么他们的轮廓应该很相似.</p>
+<ul>
+<li><p>如何确定一个阈值使得照片中最大化的呈现出轮廓信息: 采用大津法:</p>
+<ul>
+<li>类内差异最小和类间差异最大其实是等价的问题.</li>
+<li><p>假定一张图片共有n个像素，其中灰度值小于阈值的像素为 n1 个，大于等于阈值的像素为 n2 个（ n1 + n2 = n ）。w1 和 w2 表示这两种像素各自的比重. 所有灰度值小于阈值的像素的平均值和方差分别为 μ1 和 σ1，所有灰度值大于等于阈值的像素的平均值和方差分别为 μ2 和 σ2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">w1 = n1 / n</span><br><span class="line">w2 = n2 / n</span><br><span class="line">类内差异 = w1(σ1的平方) + w2(σ2的平方)</span><br><span class="line">类间差异 = w1w2(μ1-μ2)^2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>采用穷举法测试最合适的阈值.</p>
+</li>
+</ul>
+</li>
+<li>得到一个50<em>50的缩略图之后, 就得到了一个50 </em> 50的0, 1 矩阵, 对两幅图的矩阵求汉明距离, 最终可以得到两幅图像之间的相似程度.</li>
+</ul>
+<h2 id="增强型LSH-Amplifying-LSH"><a href="#增强型LSH-Amplifying-LSH" class="headerlink" title="增强型LSH(Amplifying LSH)"></a>增强型LSH(Amplifying LSH)</h2><ul>
+<li>我们希望原本相邻的数据经过LSH hash后，都能够落入到相同的桶内，而不相邻的数据经过LSH hash后，都能够落入到不同的桶中。如果相邻的数据被投影到了不同的桶内，我们称为false negtive；如果不相邻的数据被投影到了相同的桶内，我们称为false positive. <strong>这里的positive指的是最终的结果, 即是否到了相同的桶里面</strong></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础学习/" rel="tag"># 基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/09/NIMA论文阅读/" rel="next" title="NIMA论文阅读">
+                <i class="fa fa-chevron-left"></i> NIMA论文阅读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/python数据持久化/" rel="prev" title="python数据持久化">
+                python数据持久化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weidong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hash算法与Hash-Map"><span class="nav-number">1.</span> <span class="nav-text">Hash算法与Hash-Map:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是hash算法"><span class="nav-number">1.1.</span> <span class="nav-text">什么是hash算法:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash-Map数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">Hash-Map数据结构:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#经常用到的hash函数方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">经常用到的hash函数方法:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#局部敏感hash算法LSH算法"><span class="nav-number">2.</span> <span class="nav-text">局部敏感hash算法LSH算法:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LSH的基本思想是："><span class="nav-number">2.1.</span> <span class="nav-text">LSH的基本思想是：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#d1-d2-p1-p2-sensitive"><span class="nav-number">2.1.1.</span> <span class="nav-text">(d1,d2,p1,p2)-sensitive</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用LSH对数据建立索引-并通过索引进行近似最近邻查找的过程如下"><span class="nav-number">2.2.</span> <span class="nav-text">使用LSH对数据建立索引, 并通过索引进行近似最近邻查找的过程如下:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LSH的具体应用"><span class="nav-number">3.</span> <span class="nav-text">LSH的具体应用:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找网页中的重复网页"><span class="nav-number">3.1.</span> <span class="nav-text">查找网页中的重复网页:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simhash-主要参考https-yanyiwu-com-work-2014-01-30-simhash-shi-xian-xiang-jie-html"><span class="nav-number">3.1.1.</span> <span class="nav-text">simhash: (主要参考https://yanyiwu.com/work/2014/01/30/simhash-shi-xian-xiang-jie.html)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何获得文档的hash值"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">如何获得文档的hash值.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simhash的汉明距离的计算"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">simhash的汉明距离的计算:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#google提出的计算方法"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">google提出的计算方法:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#百度使用的文章重复检测方式"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">百度使用的文章重复检测方式:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像检索"><span class="nav-number">3.2.</span> <span class="nav-text">图像检索:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最简单的方法-感知哈希算法-Perceptual-hash-algorithm"><span class="nav-number">3.2.1.</span> <span class="nav-text">最简单的方法: 感知哈希算法(Perceptual hash algorithm)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于颜色分布直方图的相似度检测"><span class="nav-number">3.2.2.</span> <span class="nav-text">基于颜色分布直方图的相似度检测:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内容特征法"><span class="nav-number">3.2.3.</span> <span class="nav-text">内容特征法:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增强型LSH-Amplifying-LSH"><span class="nav-number">3.3.</span> <span class="nav-text">增强型LSH(Amplifying LSH)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weidong Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
