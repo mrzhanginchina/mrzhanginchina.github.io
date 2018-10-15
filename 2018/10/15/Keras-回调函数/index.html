@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="keras中的回调函数 callbacks:你可以使用回调函数来观察训练过程中网络内部的状态和统计信息。通过传递回调函数列表到模型的.fit()中，即可在给定的训练阶段调用该函数集中的函数. 抽象基类keras.callback.Callback()  输入参数: params：字典，训练参数集（如信息显示方法verbosity，batch大小，epoch数). model：keras.model">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras 回调函数">
+<meta property="og:url" content="http://yoursite.com/2018/10/15/Keras-回调函数/index.html">
+<meta property="og:site_name" content="张伟栋的学习之路">
+<meta property="og:description" content="keras中的回调函数 callbacks:你可以使用回调函数来观察训练过程中网络内部的状态和统计信息。通过传递回调函数列表到模型的.fit()中，即可在给定的训练阶段调用该函数集中的函数. 抽象基类keras.callback.Callback()  输入参数: params：字典，训练参数集（如信息显示方法verbosity，batch大小，epoch数). model：keras.model">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-15/51695249.jpg">
+<meta property="og:image" content="http://on40yf25i.bkt.clouddn.com/18-10-15/29621231.jpg">
+<meta property="og:updated_time" content="2018-10-15T11:17:15.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keras 回调函数">
+<meta name="twitter:description" content="keras中的回调函数 callbacks:你可以使用回调函数来观察训练过程中网络内部的状态和统计信息。通过传递回调函数列表到模型的.fit()中，即可在给定的训练阶段调用该函数集中的函数. 抽象基类keras.callback.Callback()  输入参数: params：字典，训练参数集（如信息显示方法verbosity，batch大小，epoch数). model：keras.model">
+<meta name="twitter:image" content="http://on40yf25i.bkt.clouddn.com/18-10-15/51695249.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/15/Keras-回调函数/"/>
+
+
+
+
+
+  <title>Keras 回调函数 | 张伟栋的学习之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张伟栋的学习之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录学习成长的过程</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Keras-回调函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Keras 回调函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T19:14:42+08:00">
+                2018-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="keras中的回调函数-callbacks"><a href="#keras中的回调函数-callbacks" class="headerlink" title="keras中的回调函数 callbacks:"></a>keras中的回调函数 callbacks:</h1><p>你可以使用回调函数来观察训练过程中网络内部的状态和统计信息。通过传递回调函数列表到模型的.fit()中，即可在给定的训练阶段调用该函数集中的函数.</p>
+<h2 id="抽象基类"><a href="#抽象基类" class="headerlink" title="抽象基类"></a>抽象基类</h2><p>keras.callback.Callback()</p>
+<ul>
+<li>输入参数: params：字典，训练参数集（如信息显示方法verbosity，batch大小，epoch数).</li>
+<li>model：keras.models.Model对象，为正在训练的模型的引用.</li>
+<li>目前在训练的logs主要包含以下信息:<ul>
+<li>在每一个epoch的结尾处, logs包含训练的正确率和误差, 如果制定了验证集, 还会包括验证集的正确率和误差. 如果在.compile中制定了metrics=[“accuracy”], 那么还会包含验证集上的准确率.</li>
+<li>在每一个batch开始处, 包含具体的样本数, 在结尾处包含loss.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ModelCheckpoint"><a href="#ModelCheckpoint" class="headerlink" title="ModelCheckpoint:"></a>ModelCheckpoint:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.ModelCheckpoint(filepath, monitor=&apos;val_loss&apos;, verbose=0, save_best_only=False, save_weights_only=False, mode=&apos;auto&apos;, period=1)</span><br><span class="line"># monitor 是需要关注的值, verbose是信息的展示模式, 主要包含0或者1. save_best_only：当设置为True时，将只保存在验证集上性能最好的模型. </span><br><span class="line"># mode：‘auto’，‘min’，‘max’之一，在save_best_only=True时决定性能最佳模型的评判准则，例如，当监测值为val_acc时，模式应为max，当检测值为val_loss时，模式应为min。在auto模式下，评价准则由被监测值的名字自动推断.</span><br><span class="line"># period：CheckPoint之间的间隔的epoch数.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>filepath可以是格式化的字符串, 里面的占位符将会被epoch值和传入on_epoch_end的logs关键字所填入. 例如, filepath若为weights.{epoch:02d-{val_loss:.2f}}.hdf5, 则会生成对应epoch和验证集loss的多个文件.</li>
+</ul>
+<h2 id="EarlyStopping"><a href="#EarlyStopping" class="headerlink" title="EarlyStopping:"></a>EarlyStopping:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.EarlyStopping(monitor=&apos;val_loss&apos;, patience=0, verbose=0, mode=&apos;auto&apos;)</span><br><span class="line"># monitor是需要监视的常量, patience是当early stop被激活之后, 再尝试进行多少次训练.</span><br></pre></td></tr></table></figure>
+<h2 id="LearningRateScheduler"><a href="#LearningRateScheduler" class="headerlink" title="LearningRateScheduler:"></a>LearningRateScheduler:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.LearningRateScheduler(schedule)</span><br><span class="line"># schedule：函数，该函数以epoch号为参数（从0算起的整数），返回一个新学习率（浮点数）</span><br></pre></td></tr></table></figure>
+<h2 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard:"></a>TensorBoard:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.TensorBoard(log_dir=&apos;./logs&apos;, histogram_freq=0, write_graph=True, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None)</span><br></pre></td></tr></table></figure>
+<p><img src="http://on40yf25i.bkt.clouddn.com/18-10-15/51695249.jpg" alt=""></p>
+<h2 id="ReduceLROnPlateau"><a href="#ReduceLROnPlateau" class="headerlink" title="ReduceLROnPlateau:"></a>ReduceLROnPlateau:</h2><p>当评价指标不在提升时候, 降低学习率.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.ReduceLROnPlateau(monitor=&apos;val_loss&apos;, factor=0.1, patience=10, verbose=0, mode=&apos;auto&apos;, epsilon=0.0001, cooldown=0, min_lr=0)</span><br><span class="line"></span><br><span class="line"># factor：每次减少学习率的因子, 学习率将以lr = lr*factor的形式被减少.</span><br><span class="line"># patience：当patience个epoch过去而模型性能不提升时, 学习率减少的动作会被触发.</span><br><span class="line"># epsilon：阈值，用来确定是否进入检测值的“平原区”</span><br><span class="line"># min_lr：学习率的下限</span><br></pre></td></tr></table></figure></p>
+<h2 id="编写自己的回调函数"><a href="#编写自己的回调函数" class="headerlink" title="编写自己的回调函数:"></a>编写自己的回调函数:</h2><p>我们可以通过继承keras.callbacks.Callback编写自己的回调函数，回调函数通过类成员self.model访问访问，该成员是模型的一个引用.<br><img src="http://on40yf25i.bkt.clouddn.com/18-10-15/29621231.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/15/多标签模型训练/" rel="next" title="多标签模型训练">
+                <i class="fa fa-chevron-left"></i> 多标签模型训练
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/15/神经网络可视化/" rel="prev" title="神经网络可视化">
+                神经网络可视化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weidong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#keras中的回调函数-callbacks"><span class="nav-number">1.</span> <span class="nav-text">keras中的回调函数 callbacks:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象基类"><span class="nav-number">1.1.</span> <span class="nav-text">抽象基类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ModelCheckpoint"><span class="nav-number">1.2.</span> <span class="nav-text">ModelCheckpoint:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EarlyStopping"><span class="nav-number">1.3.</span> <span class="nav-text">EarlyStopping:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LearningRateScheduler"><span class="nav-number">1.4.</span> <span class="nav-text">LearningRateScheduler:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TensorBoard"><span class="nav-number">1.5.</span> <span class="nav-text">TensorBoard:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReduceLROnPlateau"><span class="nav-number">1.6.</span> <span class="nav-text">ReduceLROnPlateau:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写自己的回调函数"><span class="nav-number">1.7.</span> <span class="nav-text">编写自己的回调函数:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weidong Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
