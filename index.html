@@ -250,6 +250,455 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/Keras-回调函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/15/Keras-回调函数/" itemprop="url">Keras 回调函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T19:14:42+08:00">
+                2018-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="keras中的回调函数-callbacks"><a href="#keras中的回调函数-callbacks" class="headerlink" title="keras中的回调函数 callbacks:"></a>keras中的回调函数 callbacks:</h1><p>你可以使用回调函数来观察训练过程中网络内部的状态和统计信息。通过传递回调函数列表到模型的.fit()中，即可在给定的训练阶段调用该函数集中的函数.</p>
+<h2 id="抽象基类"><a href="#抽象基类" class="headerlink" title="抽象基类"></a>抽象基类</h2><p>keras.callback.Callback()</p>
+<ul>
+<li>输入参数: params：字典，训练参数集（如信息显示方法verbosity，batch大小，epoch数).</li>
+<li>model：keras.models.Model对象，为正在训练的模型的引用.</li>
+<li>目前在训练的logs主要包含以下信息:<ul>
+<li>在每一个epoch的结尾处, logs包含训练的正确率和误差, 如果制定了验证集, 还会包括验证集的正确率和误差. 如果在.compile中制定了metrics=[“accuracy”], 那么还会包含验证集上的准确率.</li>
+<li>在每一个batch开始处, 包含具体的样本数, 在结尾处包含loss.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ModelCheckpoint"><a href="#ModelCheckpoint" class="headerlink" title="ModelCheckpoint:"></a>ModelCheckpoint:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.ModelCheckpoint(filepath, monitor=&apos;val_loss&apos;, verbose=0, save_best_only=False, save_weights_only=False, mode=&apos;auto&apos;, period=1)</span><br><span class="line"># monitor 是需要关注的值, verbose是信息的展示模式, 主要包含0或者1. save_best_only：当设置为True时，将只保存在验证集上性能最好的模型. </span><br><span class="line"># mode：‘auto’，‘min’，‘max’之一，在save_best_only=True时决定性能最佳模型的评判准则，例如，当监测值为val_acc时，模式应为max，当检测值为val_loss时，模式应为min。在auto模式下，评价准则由被监测值的名字自动推断.</span><br><span class="line"># period：CheckPoint之间的间隔的epoch数.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>filepath可以是格式化的字符串, 里面的占位符将会被epoch值和传入on_epoch_end的logs关键字所填入. 例如, filepath若为weights.{epoch:02d-{val_loss:.2f}}.hdf5, 则会生成对应epoch和验证集loss的多个文件.</li>
+</ul>
+<h2 id="EarlyStopping"><a href="#EarlyStopping" class="headerlink" title="EarlyStopping:"></a>EarlyStopping:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.EarlyStopping(monitor=&apos;val_loss&apos;, patience=0, verbose=0, mode=&apos;auto&apos;)</span><br><span class="line"># monitor是需要监视的常量, patience是当early stop被激活之后, 再尝试进行多少次训练.</span><br></pre></td></tr></table></figure>
+<h2 id="LearningRateScheduler"><a href="#LearningRateScheduler" class="headerlink" title="LearningRateScheduler:"></a>LearningRateScheduler:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.LearningRateScheduler(schedule)</span><br><span class="line"># schedule：函数，该函数以epoch号为参数（从0算起的整数），返回一个新学习率（浮点数）</span><br></pre></td></tr></table></figure>
+<h2 id="TensorBoard"><a href="#TensorBoard" class="headerlink" title="TensorBoard:"></a>TensorBoard:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.TensorBoard(log_dir=&apos;./logs&apos;, histogram_freq=0, write_graph=True, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None)</span><br></pre></td></tr></table></figure>
+<p><img src="http://on40yf25i.bkt.clouddn.com/18-10-15/51695249.jpg" alt=""></p>
+<h2 id="ReduceLROnPlateau"><a href="#ReduceLROnPlateau" class="headerlink" title="ReduceLROnPlateau:"></a>ReduceLROnPlateau:</h2><p>当评价指标不在提升时候, 降低学习率.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">keras.callbacks.ReduceLROnPlateau(monitor=&apos;val_loss&apos;, factor=0.1, patience=10, verbose=0, mode=&apos;auto&apos;, epsilon=0.0001, cooldown=0, min_lr=0)</span><br><span class="line"></span><br><span class="line"># factor：每次减少学习率的因子, 学习率将以lr = lr*factor的形式被减少.</span><br><span class="line"># patience：当patience个epoch过去而模型性能不提升时, 学习率减少的动作会被触发.</span><br><span class="line"># epsilon：阈值，用来确定是否进入检测值的“平原区”</span><br><span class="line"># min_lr：学习率的下限</span><br></pre></td></tr></table></figure></p>
+<h2 id="编写自己的回调函数"><a href="#编写自己的回调函数" class="headerlink" title="编写自己的回调函数:"></a>编写自己的回调函数:</h2><p>我们可以通过继承keras.callbacks.Callback编写自己的回调函数，回调函数通过类成员self.model访问访问，该成员是模型的一个引用.<br><img src="http://on40yf25i.bkt.clouddn.com/18-10-15/29621231.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/多标签模型训练/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/15/多标签模型训练/" itemprop="url">多标签模型训练</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T19:13:08+08:00">
+                2018-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="训练多标签的神经网络模型"><a href="#训练多标签的神经网络模型" class="headerlink" title="训练多标签的神经网络模型:"></a>训练多标签的神经网络模型:</h1><p>(参考文章: <a href="https://zhuanlan.zhihu.com/p/39996321" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/39996321</a>)</p>
+<h2 id="主要的要点"><a href="#主要的要点" class="headerlink" title="主要的要点:"></a>主要的要点:</h2><ul>
+<li>训练多标签的模型和正常模型的区别: 多标签模型可以针对任意一个标签输出预测的置信度.</li>
+<li>例如, 想训练黑色牛仔裤, 蓝色裙子, 蓝色牛仔裤, 蓝色衬衫, 红色裙子, 红色衬衫等六个种类.<ul>
+<li>传统的方法是将六个种类直接分为六个类别, 然后最后一层直接对应这六个类别的分布, 从而直接得到最重的结果.</li>
+<li>使用多标签的训练模式则是: 将六个类别进行拆分, 分为黑色, 蓝色, 红色, 牛仔裤, 裙子, 衬衫.</li>
+<li>使用二进制的交叉熵进行训练, 最终, 将神经网络的前两个类别输出, 分别得到其输出的类别和置信度(置信度是使用sigmoid函数输出的).</li>
+<li>使用MultiLabelBinarizer来对标签进行二值化.</li>
+</ul>
+</li>
+</ul>
+<h2 id="文章中的其他亮点"><a href="#文章中的其他亮点" class="headerlink" title="文章中的其他亮点:"></a>文章中的其他亮点:</h2><ul>
+<li>使用plt进行图像的绘制.</li>
+<li>使用sklearn中的API, 将类别转换为onehot编码.</li>
+<li>通过不同的路径, 进行路径的拆分, 从而取得每一张图片的多种标签.</li>
+</ul>
+<h1 id="训练多分支的神经网络模型-https-www-jiqizhixin-com-articles-2018-08-14-2"><a href="#训练多分支的神经网络模型-https-www-jiqizhixin-com-articles-2018-08-14-2" class="headerlink" title="训练多分支的神经网络模型: (https://www.jiqizhixin.com/articles/2018-08-14-2)"></a>训练多分支的神经网络模型: (<a href="https://www.jiqizhixin.com/articles/2018-08-14-2" target="_blank" rel="noopener">https://www.jiqizhixin.com/articles/2018-08-14-2</a>)</h1><h2 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点:"></a>主要特点:</h2><ul>
+<li>模型将拥有两个分支机构, 分别输出对应的一种类型的概率值: 例如一个分支负责输出是鞋子还是裙子, 一个分支负责输出是红色还是黑色.</li>
+<li>使用LabelBinarizer进行标签的二值化, 因为不是多标签问题, 所以这里只需要使用LabelBinarizer就行, 而不需要使用MultiLabelBinarizer.</li>
+<li>定义多个损失是使用一个字典完成的, 其使用每一个分支激活蹭的名称, 然后指定相应的损失函数.</li>
+<li>使用多损失时候, 还需要在另外一个字典中定义lossWeights.</li>
+<li><img src="https://ws1.sinaimg.cn/large/007nT7OSly1fw7qhr01prj30ii03wjut.jpg" alt=""></li>
+</ul>
+<h2 id="多标签分类-第一种-可能无法分类不熟悉的标签组合，但多输出分类-第二种-能很好地应对这样的任务"><a href="#多标签分类-第一种-可能无法分类不熟悉的标签组合，但多输出分类-第二种-能很好地应对这样的任务" class="headerlink" title="多标签分类(第一种)可能无法分类不熟悉的标签组合，但多输出分类(第二种)能很好地应对这样的任务."></a>多标签分类(第一种)可能无法分类不熟悉的标签组合，但多输出分类(第二种)能很好地应对这样的任务.</h2><h1 id="如何快速的搭建一个自己的深度学习图像数据库"><a href="#如何快速的搭建一个自己的深度学习图像数据库" class="headerlink" title="如何快速的搭建一个自己的深度学习图像数据库"></a>如何快速的搭建一个自己的深度学习图像数据库</h1><ul>
+<li>(<a href="https://www.pyimagesearch.com/2018/04/09/how-to-quickly-build-a-deep-learning-image-dataset/" target="_blank" rel="noopener">https://www.pyimagesearch.com/2018/04/09/how-to-quickly-build-a-deep-learning-image-dataset/</a>)</li>
+<li>使用bing的图片搜索API, 快速的搭建一个深度学习图像数据库.</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/15/python基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/15/python基础/" itemprop="url">python基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-15T19:11:32+08:00">
+                2018-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Python中的基础模块复习"><a href="#Python中的基础模块复习" class="headerlink" title="Python中的基础模块复习"></a>Python中的基础模块复习</h1><h2 id="python中的reduce函数"><a href="#python中的reduce函数" class="headerlink" title="python中的reduce函数"></a>python中的reduce函数</h2><ul>
+<li>reduce函数接受一个函数(拥有两个输入), 和一个可迭代的对象作为输入.</li>
+<li>reduce函数的核心是, 他会将上一个函数的运算的结果, 作为下次运算时候, 函数的第一个参数.</li>
+</ul>
+<h2 id="python中的os-chdir"><a href="#python中的os-chdir" class="headerlink" title="python中的os.chdir()"></a>python中的os.chdir()</h2><ul>
+<li>使用这个参数用于改变当前函数的工作目录:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">path = &quot;/tmp&quot;</span><br><span class="line"></span><br><span class="line"># 查看当前工作目录</span><br><span class="line">retval = os.getcwd()</span><br><span class="line">print (&quot;当前工作目录为 %s&quot; % retval)</span><br><span class="line"></span><br><span class="line"># 修改当前工作目录</span><br><span class="line">os.chdir( path )</span><br><span class="line"># 查看修改后的工作目录</span><br><span class="line">retval = os.getcwd()</span><br><span class="line"></span><br><span class="line"># 当前工作目录为 /www</span><br><span class="line">#目录修改成功 /tmp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="python中的标准库概览"><a href="#python中的标准库概览" class="headerlink" title="python中的标准库概览"></a>python中的标准库概览</h2><h3 id="glob-是一个文件的查询模块-类似于正则表达式-但更为简单"><a href="#glob-是一个文件的查询模块-类似于正则表达式-但更为简单" class="headerlink" title="glob 是一个文件的查询模块(类似于正则表达式, 但更为简单)"></a>glob 是一个文件的查询模块(类似于正则表达式, 但更为简单)</h3><ul>
+<li>通配符-星号<em>：星号</em>匹配一个文件名段中的0个或多个字符</li>
+<li>单配符-问号?：问号?会匹配文件名中该位置的单个字符。</li>
+<li>字符区间-[a-z]：使用字符区间[a-z]，可以匹配多个字符中的一个字符。</li>
+</ul>
+<h4 id="两个函数方法"><a href="#两个函数方法" class="headerlink" title="两个函数方法"></a>两个函数方法</h4><ul>
+<li>glob.glob(pathname): 返回所有匹配的文件路径列表。它只有一个参数pathname，定义了文件路径匹配规则，这里可以是绝对路径，也可以是相对路径.</li>
+<li>glob.iglob(pathname): 获取一个可编历对象，使用它可以逐个获取匹配的文件路径名。与glob.glob()的区别是：glob.glob同时获取所有的匹配路径，而glob.iglob一次只获取一个匹配路径.</li>
+</ul>
+<h4 id="其他事项"><a href="#其他事项" class="headerlink" title="其他事项:"></a>其他事项:</h4><ul>
+<li>glob模块不会显式的列出子目录中的文件, 如果要想列出子目录中的文件应该使用下面这种方式:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">glob.glob(&quot;tem/*/*&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="os模块"><a href="#os模块" class="headerlink" title="os模块:"></a>os模块:</h3><p>os模块提供与操作系统进行关联的函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import os</span><br><span class="line">&gt;&gt;&gt; os.getcwd()      # 返回当前的工作目录</span><br><span class="line">&apos;C:\\Python34&apos;</span><br><span class="line">&gt;&gt;&gt; os.chdir(&apos;/server/accesslogs&apos;)   # 修改当前的工作目录</span><br><span class="line">&gt;&gt;&gt; os.system(&apos;mkdir today&apos;)   # 执行系统命令 mkdir</span><br></pre></td></tr></table></figure></p>
+<h3 id="shutil提供了对文件的一些操作"><a href="#shutil提供了对文件的一些操作" class="headerlink" title="shutil提供了对文件的一些操作:"></a>shutil提供了对文件的一些操作:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import shutil</span><br><span class="line"># 拷贝文件</span><br><span class="line">&gt;&gt;&gt; shutil.copyfile(&apos;data.db&apos;, &apos;archive.db&apos;)</span><br><span class="line"># 移动文件到一个新的位置</span><br><span class="line">&gt;&gt;&gt; shutil.move(&apos;/build/executables&apos;, &apos;installdir&apos;)</span><br></pre></td></tr></table></figure>
+<h3 id="python中的命令行参数"><a href="#python中的命令行参数" class="headerlink" title="python中的命令行参数"></a>python中的命令行参数</h3><p>通用工具脚本经常调用命令行参数。这些命令行参数以链表形式存储于 sys 模块的 argv 变量。例如在命令行中执行 “python demo.py one two three” 后可以得到以下输出结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sys</span><br><span class="line">&gt;&gt;&gt; print(sys.argv)</span><br><span class="line">[&apos;demo.py&apos;, &apos;one&apos;, &apos;two&apos;, &apos;three&apos;]</span><br></pre></td></tr></table></figure></p>
+<h3 id="Timer-性能度量函数"><a href="#Timer-性能度量函数" class="headerlink" title="Timer: 性能度量函数"></a>Timer: 性能度量函数</h3><ul>
+<li>有些用户对了解解决同一问题的不同方法之间的性能差异很感兴趣。Python 提供了一个度量工具，为这些问题提供了直接答案.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from timeit import Timer</span><br><span class="line">&gt;&gt;&gt; Timer(&apos;t=a; a=b; b=t&apos;, &apos;a=1; b=2&apos;).timeit()</span><br><span class="line">0.57535828626024577</span><br><span class="line">&gt;&gt;&gt; Timer(&apos;a,b = b,a&apos;, &apos;a=1; b=2&apos;).timeit()</span><br><span class="line">0.54962537085770791</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="os-walk方法"><a href="#os-walk方法" class="headerlink" title="os.walk方法:"></a>os.walk方法:</h3><ul>
+<li><p>os.walk() 方法是一个简单易用的文件、目录遍历器，可以帮助我们高效的处理文件、目录方面的事情.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>top – 是你所要遍历的目录的地址, 返回的是一个三元组(root,dirs,files):</p>
+<ul>
+<li>root 所指的是当前正在遍历的这个文件夹的本身的地址</li>
+<li>dirs 是一个 list ，内容是该文件夹中所有的目录的名字(不包括子目录)</li>
+<li>files 同样是 list , 内容是该文件夹中所有的文件(不包括子目录)</li>
+</ul>
+</li>
+<li><p>如果在等号前附加多个值的话, 该函数会一直迭代下去.</p>
+</li>
+<li>如果需要访问当前目录下的文件使用os.walk(“./“)[2]即可.</li>
+<li>如果想要访问当前目录下的文件夹使用os.walk(“./“)[1]即可.</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/python中的位操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1201,7 +1650,7 @@ Hash-Map</a></h1>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1214,7 +1663,7 @@ Hash-Map</a></h1>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
