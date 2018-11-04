@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="论文阅读," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="focalLose 阅读笔记主要思想: 主要是为了解决一次性预测模型的负例太多导致模型预测性能被过多的负例影响的问题. 为了解决负例过多的问题, 文中提出了一种自动将易分样本权重降低的方法.  易分样本: 模型判断该物体属于真实类的概率较高的图片区域. 难分样本: 模型判断该物体属于真实类的概率较低的图片区域.  文章主要内容:摘要 目前在object detector领域, 精度最高的方案使用的">
+<meta name="keywords" content="论文阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="focalLoss笔记">
+<meta property="og:url" content="http://yoursite.com/2018/11/04/focalLoss笔记/index.html">
+<meta property="og:site_name" content="张伟栋的学习之路">
+<meta property="og:description" content="focalLose 阅读笔记主要思想: 主要是为了解决一次性预测模型的负例太多导致模型预测性能被过多的负例影响的问题. 为了解决负例过多的问题, 文中提出了一种自动将易分样本权重降低的方法.  易分样本: 模型判断该物体属于真实类的概率较高的图片区域. 难分样本: 模型判断该物体属于真实类的概率较低的图片区域.  文章主要内容:摘要 目前在object detector领域, 精度最高的方案使用的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-10-31/39834135.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/34573075.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/26302871.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/152445.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/1124556.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/60289929.jpg">
+<meta property="og:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/70394113.jpg">
+<meta property="og:updated_time" content="2018-11-04T11:07:48.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="focalLoss笔记">
+<meta name="twitter:description" content="focalLose 阅读笔记主要思想: 主要是为了解决一次性预测模型的负例太多导致模型预测性能被过多的负例影响的问题. 为了解决负例过多的问题, 文中提出了一种自动将易分样本权重降低的方法.  易分样本: 模型判断该物体属于真实类的概率较高的图片区域. 难分样本: 模型判断该物体属于真实类的概率较低的图片区域.  文章主要内容:摘要 目前在object detector领域, 精度最高的方案使用的">
+<meta name="twitter:image" content="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-10-31/39834135.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/04/focalLoss笔记/"/>
+
+
+
+
+
+  <title>focalLoss笔记 | 张伟栋的学习之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张伟栋的学习之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录学习成长的过程</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/focalLoss笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">focalLoss笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-04T19:06:44+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="focalLose-阅读笔记"><a href="#focalLose-阅读笔记" class="headerlink" title="focalLose 阅读笔记"></a>focalLose 阅读笔记</h1><h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想:"></a>主要思想:</h2><ul>
+<li>主要是为了解决一次性预测模型的负例太多导致模型预测性能被过多的负例影响的问题.</li>
+<li>为了解决负例过多的问题, 文中提出了一种自动将易分样本权重降低的方法.</li>
+<li><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-10-31/39834135.jpg" alt=""></li>
+<li>易分样本: 模型判断该物体属于真实类的概率较高的图片区域.</li>
+<li>难分样本: 模型判断该物体属于真实类的概率较低的图片区域.</li>
+</ul>
+<h2 id="文章主要内容"><a href="#文章主要内容" class="headerlink" title="文章主要内容:"></a>文章主要内容:</h2><h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><ul>
+<li>目前在object detector领域, 精度最高的方案使用的是两阶段的方法.</li>
+<li>两阶段的方案虽然精度较高, 但是速度明显低于一阶段的模型.</li>
+<li>一阶段的模型虽然运行速度很快, 但是其精度一直不能超越两阶段的模型.</li>
+<li>之所有会有这种差别是因为:<ul>
+<li>在二阶段训练方式中, 第一个阶段会将大量的负例样本去除, 这一过程耗时较长, 但是可以使得正负样本较为均衡.</li>
+<li>在一阶段的方法中, 模型的速度较快, 但是模型的数据中负例较多, 这些负例影响了模型正常的学习, 使得模型损失一定的准确率.</li>
+</ul>
+</li>
+<li>我们提出的focal loss方法可以将一阶段模型中负例的权重大大的降低, 从而使得模型的损失不被负例过多的影响, 从而提高了模型的准确度.</li>
+</ul>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
+<li>目前最好的物体detector算法是基于二阶段的算法, 第一个阶段提出可能存在待分类问题的区域, 第二个阶段将这个物体判断为真实物体或者是背景图像.</li>
+<li>目前有更为简单的一阶段的算法可以提高物体检测的速度, 大大简化了物体识别的流程, 例如SSD和YOLO, 但是这些方法和使用二阶段的方法存在一些性能上的差异.</li>
+<li>这篇论文设计了一个新的网络, 使用的是一阶段的方法但是最终的效果可以媲美目前精度最好的神经网络.</li>
+<li>作者通过研究发现, 目前影响神经网络训练精度的最主要的原因是正负样本的不均衡.即: 负例样本的数量远远地多于正立样本的数量.</li>
+<li>在传统的二阶段的神经网络中, 第一个阶段将大量的明显存在错误的负样本去除, 而在第二个阶段将剩余的其他样本进行更加惊喜的判断, 这种方法解决了正负样本不均衡的问题, 从而提升了训练的精度. </li>
+<li>目前在一阶段的训练过程中, 解决这个正负样本不均衡的方法主要是采用固定比的正负样本比例来进行训练(正负样本1:3), 或者是难分样本挖掘的方法.</li>
+<li>在这个论文中, 作者提出了一种新的方法: Focal loss, 将传统的代价函数更改为一种与分类置信度相关的带有权重的代价函数.</li>
+</ul>
+<h3 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h3><ul>
+<li>经典的物体识别算法: 使用滑动窗口的物体识别算法</li>
+<li>两阶段的物体时被算法:</li>
+<li>单阶段的物体识别算法:</li>
+<li>正负样本不均衡会导致的问题:<ul>
+<li>会使得训练的效率降低, 影响训练时间</li>
+<li>会让代价函数较少的关注含有特定物体的部分, 从而影响训练的精度.</li>
+</ul>
+</li>
+<li>Robust estimation: 例如Huber loss, 为离群值分配更高的权重, 从而影响模型的训练. 但是与这些现有的算法相反, focal loss提出的方法更加偏向于训练那些较难区分的个体.</li>
+</ul>
+<h3 id="Focal-loss"><a href="#Focal-loss" class="headerlink" title="Focal loss:"></a>Focal loss:</h3><ul>
+<li><p>3.1传统的交叉损失:<br><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/34573075.jpg" alt=""></p>
+<ul>
+<li>在代价函数中, 所有的错误拥有相同的权重.</li>
+<li>p(t)是属于某一个类的概率.</li>
+</ul>
+</li>
+<li><p>平衡交叉熵:<br><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/26302871.jpg" alt=""><br>这是传统交叉熵的一个扩展, 通过α这个参数调节了损失函数.</p>
+</li>
+<li><p>3.2 交叉熵:<br><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/152445.jpg" alt=""><br>当图像属于某一类的概率较大时候(包含背景类), FL就比较小, 当图像属于某一类的概率较小时候(包含背景类), FL就比较大.</p>
+<ul>
+<li>作者通过实验发现, 当γ = 2时候, 效果较好.</li>
+<li>通过这种方法: 当P_ t 为0.9时候, 相比于普通的交叉熵, 代价将降低到原来的一百分之一, 当P_t = 0.968时候, 相比于普通的交叉熵, 代价将降低到原来的一千分之一.</li>
+</ul>
+</li>
+<li><p>3.3 类别不均衡和模型的初始化:</p>
+<ul>
+<li>在二进制分类网络中, 模型被初始化使用相同的权重, 使用这种初始化方法, 当类别不均衡时候, 经常出现的类别错误将会左右整个网络的最终代价.</li>
+<li>为了对付这个现象, 我们在预估罕见类之前为模型引入先验知识(concept of the prior) .</li>
+<li>我们将这种稀少类的先验知识称为π, 使得模型在预测稀少类别时候的概率较低, 从而提高其在总体的代价中的权重. 这种方法可以大大的提高模型的训练时候的稳定性.</li>
+</ul>
+</li>
+</ul>
+<h3 id="retina-net"><a href="#retina-net" class="headerlink" title="retina net"></a>retina net</h3><ul>
+<li>retinaNet是一个简单的单阶段detector网络, 它主要包括一个基础网络和两个承担不同人物的子网络.</li>
+<li>基础网络主要是计算输入图像的卷积特征, 他是一个现成的网络.</li>
+<li>第一个子网络的主要的任务是在基础网络的输出之上进行物体类别的划分.</li>
+<li>第二个字网络的主要任务是进行边界框的回归.</li>
+</ul>
+<h4 id="模型示意图"><a href="#模型示意图" class="headerlink" title="模型示意图:"></a>模型示意图:</h4><p><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/1124556.jpg" alt=""></p>
+<ul>
+<li><p>基础网络:</p>
+<ul>
+<li>基础网络采用的特征金字塔模型, 将不同的scale的特征图组合到一起.</li>
+<li>基础网络中采用的模型架构是Resnet.</li>
+<li>将模型中的第三层到第七层提取出来, 进行组合从而得到一个特征图.</li>
+<li>之所以使用空间金字塔的模型, 是因为如果仅仅使用最后一层的特征图, 整个网络的mAP将降低挺多.</li>
+</ul>
+</li>
+<li><p>Anchors: 锚点</p>
+<ul>
+<li>在这个网络中使用平移不变性的锚点, 每个锚点的覆盖范围从32 <em> 32到512 </em> 512(分别对应于第三层到第七层的卷积图.)</li>
+<li>每一个锚点拥有三种不同的比例{1:2, 1:1, 2:1}, 为了更密集的进行对物体的覆盖, 在每一个等级上, 我们添加了{2的0次方, 2的三分之一次方, 2的三分之2次方}的锚点.</li>
+<li>在整个网络中, 每一个特征图的层级含有九个锚点, 通过不同的特征缩放, 他们分别涵盖了输入图像从32到813个像素.</li>
+<li>每一个anchor被分配了一个长度为K的one-hot向量, K是网络所涵盖的所有的类别数量.</li>
+<li>每一个anchor还包含一个4Vector, 包含物体框的回归groundtruth.</li>
+<li>如果一个锚点和一个groundtruth对象的IoU大于0.5, 那么就将其设置为groundtruth对象. 如果一个anocher与背景的重合在[0, 0.4)之间, 那么将将这个anocher分配给背景图像.</li>
+<li>一个anochre最多被分配给一个物体框, 如果该anocher被分配给一个具体的类, 那么在one-hot编码中, 就将这个类别对应位置的值设置为1, 其余设置为0.</li>
+<li>如果一个anocher没有被分配给一个具体的类别, 那么这个anocher在训练过程中就会被忽略.</li>
+<li>边框回归计算物体边框相对于anocher的偏移.</li>
+</ul>
+</li>
+<li><p>分类子网:</p>
+<ul>
+<li>这个网络预测属于每一个类别的可能性在不同的层级上, 在所有的FPN 层级上, 这个分类子网的参数是共享的.</li>
+<li>这个网络的设计非常简单, 接收含有C个通道的特征图从FPN网络的每一层, 子网含有3 <em> 3的卷积层, 每一个卷积层使用Relu的方式进行激活, 之后的使用一个拥有KA个filter的3 </em> 3卷积层进行处理.最后, sigmoid函数将输出归一化到0-1, 分别代表每一个anocher中对应的不同类别的概率.</li>
+</ul>
+</li>
+<li><p>框体回归子网:</p>
+<ul>
+<li>框体回归子网的设计和分类子网的结构非常相似, 除了其最终输出的是4A(A是ancher的个数)个线性的输出(在FPN的每一个level上均有输出).</li>
+<li>本文中使用的类未知框(class-agnostic), 这种结构拥有较少的参数却有着和特定类框相同的效果.</li>
+</ul>
+</li>
+</ul>
+<h3 id="最终的结果对比"><a href="#最终的结果对比" class="headerlink" title="最终的结果对比"></a>最终的结果对比</h3><p><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/60289929.jpg" alt=""></p>
+<ul>
+<li>有效性的证明:<br><img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-4/70394113.jpg" alt=""></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/论文阅读/" rel="tag"># 论文阅读</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/15/神经网络可视化/" rel="next" title="神经网络可视化">
+                <i class="fa fa-chevron-left"></i> 神经网络可视化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weidong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#focalLose-阅读笔记"><span class="nav-number">1.</span> <span class="nav-text">focalLose 阅读笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思想"><span class="nav-number">1.1.</span> <span class="nav-text">主要思想:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章主要内容"><span class="nav-number">1.2.</span> <span class="nav-text">文章主要内容:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.2.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关工作"><span class="nav-number">1.2.3.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Focal-loss"><span class="nav-number">1.2.4.</span> <span class="nav-text">Focal loss:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#retina-net"><span class="nav-number">1.2.5.</span> <span class="nav-text">retina net</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型示意图"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">模型示意图:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终的结果对比"><span class="nav-number">1.2.6.</span> <span class="nav-text">最终的结果对比</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weidong Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
