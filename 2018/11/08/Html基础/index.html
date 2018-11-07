@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前端知识基础Html基础语法: \ 是标题标签 \ 是段落标签  图片的标签 Html中的标签不区分大小写, 但是一般都是使用小写的格式. \ 代码注释功能  Html的基本结构: \称为根标签，所有的网页标签都在\中.  标签用于定义文档的头部，它是所有头部元素的容器。头部元素有、、 、、 等标签. 在和标签之间的内容是网页的主要内容，如\、\、\、\等网页内容标签，在这里的标签中的内容会在浏览">
+<meta name="keywords" content="基础学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Html基础">
+<meta property="og:url" content="http://yoursite.com/2018/11/08/Html基础/index.html">
+<meta property="og:site_name" content="张伟栋的学习之路">
+<meta property="og:description" content="前端知识基础Html基础语法: \ 是标题标签 \ 是段落标签  图片的标签 Html中的标签不区分大小写, 但是一般都是使用小写的格式. \ 代码注释功能  Html的基本结构: \称为根标签，所有的网页标签都在\中.  标签用于定义文档的头部，它是所有头部元素的容器。头部元素有、、 、、 等标签. 在和标签之间的内容是网页的主要内容，如\、\、\、\等网页内容标签，在这里的标签中的内容会在浏览">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-07T16:50:48.470Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Html基础">
+<meta name="twitter:description" content="前端知识基础Html基础语法: \ 是标题标签 \ 是段落标签  图片的标签 Html中的标签不区分大小写, 但是一般都是使用小写的格式. \ 代码注释功能  Html的基本结构: \称为根标签，所有的网页标签都在\中.  标签用于定义文档的头部，它是所有头部元素的容器。头部元素有、、 、、 等标签. 在和标签之间的内容是网页的主要内容，如\、\、\、\等网页内容标签，在这里的标签中的内容会在浏览">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/08/Html基础/"/>
+
+
+
+
+
+  <title>Html基础 | 张伟栋的学习之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张伟栋的学习之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录学习成长的过程</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/Html基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weidong Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张伟栋的学习之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Html基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-08T00:49:34+08:00">
+                2018-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端知识基础"><a href="#前端知识基础" class="headerlink" title="前端知识基础"></a>前端知识基础</h1><h2 id="Html基础语法"><a href="#Html基础语法" class="headerlink" title="Html基础语法:"></a>Html基础语法:</h2><ol>
+<li>\<h1> 是标题标签</h1></li>
+<li>\<p> 是段落标签</p></li>
+<li><img src=""> 图片的标签</li>
+<li>Html中的标签不区分大小写, 但是一般都是使用小写的格式.</li>
+<li>\<!--注释文字 --> 代码注释功能</li>
+</ol>
+<h3 id="Html的基本结构"><a href="#Html的基本结构" class="headerlink" title="Html的基本结构:"></a>Html的基本结构:</h3><ol>
+<li>\<html></html>称为根标签，所有的网页标签都在\<html></html>中.</li>
+<li><head> 标签用于定义文档的头部，它是所有头部元素的容器。头部元素有<title>、<script>、 <style>、<link>、 <meta>等标签.</li>
+<li>在<body>和</body>标签之间的内容是网页的主要内容，如\<h1>、\<p>、\<a>、\<img>等网页内容标签，在这里的标签中的内容会在浏览器中显示出来.</li>
+</ol>
+<h4 id="文档的头部"><a href="#文档的头部" class="headerlink" title="文档的头部"></a>文档的头部<head></h4><ul>
+<li>文档头部描述了文档的一些相关信息, 但是文档中出现的内容一般不会显示给用户.</li>
+<li><title>是文档的标题栏, 其会出现在浏览器的标题栏中.</li>
+<li><style>在这个中间可以针对每一个具体的标签定义新的样式, 定义样式之后的标签可以在<body>中使用.</li>
+</ul>
+<h4 id="文档的内容部分"><a href="#文档的内容部分" class="headerlink" title="文档的内容部分"></a>文档的内容部分<body></h4><ul>
+<li><body>中是文档内容的显示.</li>
+<li><p>是段落标签, 标签的默认样式，段前段后都会有空白，如果不喜欢这个空白，可以用css样式来删除或改变它.</li>
+<li>标题标签一共有6个，h1、h2、h3、h4、h5、h6分别为一级标题、二级标题、三级标题、四级标题、五级标题、六级标题。并且依据重要性递减。<h1>是最高的等级</li>
+<li>标题标签中的字号会被加粗处理.</li>
+<li><em> 表示强调，<strong> 表示更强烈的强调. 并且在浏览器中<em> 默认用斜体表示，<strong> 用粗体表示.</li>
+<li><span>标签是没有语义的，它的作用就是为了设置单独的样式用的</li>
+<li><q>引用文本</q> <q>标签表示引用, 例如引用一段具体的文字等. 引用的文本会自动加上双引号, 而不需要自己加上双印好.</li>
+<li>\<blockquote>是对大段大段的文本进行引用, 浏览器对\<blockquote>标签的解析是缩进样式. \<blockquote>中的引用不会加上引号. <img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/1922700.jpg" alt=""></li>
+<li>使用<br />标签可以进行换行操作.</li>
+<li><br />标签是一个空标签，没有HTML内容的标签就是空标签，空标签只需要写一个开始标签，这样的标签有<br />、<hr />和<img />. 在 html 代码中输入回车、空格都是没有作用的。在html文本中想输入回车换行，就必须输入<br /></li>
+<li>要想输入空格，必须写入&nbsp; <strong>记忆: &amp;牛逼sp</strong></li>
+<li><hr>标签，添加水平横线.</li>
+<li><hr />标签的在浏览器中的默认样式线条比较粗, 颜色为灰色, 可能有些人觉得这种样式不美观, 没有关系, 这些外在样式在我们以后学习了css样式表之后, 都可以对其修改. </li>
+<li><address>联系地址信息</address>, 在这种格式中, 联系地址信息会自动的变为斜体, 并换行.</li>
+<li><a href="mailto:lilian@imooc.com">点击给我发送邮件</a> 这里的超链接中, mailto表示调用邮件客户端发送邮件.</li>
+<li><code>代码语言</code>, 如果是多行的代码: 使用<pre>标签. <pre> 标签的主要作用:预格式化的文本。被包围在 pre 元素中的文本通常会保留空格和换行符</li>
+<li>使用ul-li的方式来书写列表, <img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/52512198.jpg" alt=""> <img src="http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/52465349.jpg" alt=""></li>
+<li>将ul-li更换为ol-li既可以将列表变为有序的列表.</li>
+</ul>
+<h4 id="文档中独立的容器"><a href="#文档中独立的容器" class="headerlink" title="文档中独立的容器"></a>文档中独立的容器<div></h4><ul>
+<li>用id属性来为<div>提供唯一的名称, 这个就像我们每个人都有一个身份证号, 这个身份证号是唯一标识我们的身份的, 也是必须唯一的. </li>
+</ul>
+<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格<table></h4><ul>
+<li>表格中主要包括四种元素: table, tbody, tr, th, td.</li>
+<li>\<table>…\</table>：整个表格以\<table>标记开始、\</table>标记结束</li>
+<li>\<tbody>…\</tbody>：如果不加\<thead>\<tbody>\<tfooter>, table表格加载完后才显示. 加上这些表格结构, tbody包含行的内容下载完优先显示, 不必等待表格结束后在显示, 同时如果表格很长, 用tbody分段, 可以一部分一部分地显示.(通俗理解table 可以按结构一块块的显示, 不在等整个表格加载完后显示.)</li>
+<li>\<tr>…\</tr>：表格的一行，所以有几对tr 表格就有几行</li>
+<li>\<td>…\</td>：表格的一个单元格，一行中包含几对\<td>…\</td>，说明一行中就有几列</li>
+<li>\<th>…\</th>：表格的头部的一个单元格，表格表头</li>
+</ul>
+<hr>
+<ul>
+<li><p>使用CSS为表格加上框体: 在head中, 定义CSS的样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">table tr td,th&#123;border:1px solid #000;&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>\<caption>标题文本\</caption>, 在表格的首行可以使用caption标签来为表格指定一个标题.</p>
+</li>
+<li>同时table的标签中, 还可以加入summary的总结, summary中的内容不会显示在表格中, 但是可以帮助搜索引擎理解表格内容, 从而提高检索效率.</li>
+</ul>
+<h4 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h4><ul>
+<li><a  href="目标网址"  title="鼠标滑过显示的文本">链接显示的文本</a>, 这里的href后面是链接到的目标网址, title后面是当鼠标悬浮时候显示出来的提示文本.</li>
+<li><p><a>标签在默认情况下，链接的网页是在当前浏览器窗口中打开，有时我们需要在新的浏览器窗口中打开当前链接, 这时候需要在<a>之后加上 target=”_ blank”. <figure class="highlight plain"><figcaption><span>href</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 图像显示: &lt;img&gt;</span><br><span class="line">- \&lt;img src=&quot;图片地址&quot; alt=&quot;下载失败时的替换文本&quot; title = &quot;提示文本&quot;&gt;</span><br><span class="line">- alt是图像的一个描述性的文本, 当图像不能下载时候, 可以添加这样的一条信息, 用作提醒. </span><br><span class="line"></span><br><span class="line">#### 用户和副武器的交互: &lt;form&gt;</span><br><span class="line">- \&lt;form   method=&quot;传送方式&quot;   action=&quot;服务器文件&quot;&gt;</span><br><span class="line">- action ：浏览者输入的数据被传送到的地方,比如一个PHP页面(save.php), 或者是服务器的某一段程序.</span><br><span class="line">- method ： 数据传送的方式(get/post): get方法提交之后, 输入的内容都会显示在网页的URL当中, 而如果使用post方法, 输入的内容不会显示在URL之中. 如果是page等参数, 使用get方法较好, 用户名和密码等参数, 使用post方法较好.</span><br><span class="line">- 所有表单控件（文本框、文本域、按钮、单选框、复选框等）都必须放在 &lt;form&gt;&lt;/form&gt; 标签之间（否则用户输入的信息可提交不到服务器上哦！）</span><br><span class="line">---</span><br><span class="line">- 输入控件: \&lt;input type=&quot;text/password&quot; name=&quot;为文本框命名&quot; value=&quot;设置默认填充值&quot; /&gt; 当type=&quot;text&quot;时候, 为文字内容输入框, 当type=&quot;password&quot;时候, 为密码输入框.</span><br><span class="line">- &lt;textarea  rows=&quot;行数&quot; cols=&quot;列数&quot;&gt;文本&lt;/textarea&gt; textarea可以输入大量的数据, 在&lt;textarea&gt;&lt;/textarea&gt;标签之间可以输入默认值. *这里的rows和cols标签可以使用CSS中的width和height属性进行代替*</span><br><span class="line">- 控件中的type除了text, password之外还有submit和reset的类型, 分别拥有不同的作用.</span><br><span class="line">- &lt;input   type=&quot;radio/checkbox&quot;   value=&quot;提交到服务器的值&quot;    name=&quot;为控件命名&quot;   checked=&quot;checked&quot;/&gt; </span><br><span class="line">  - 当type为radio时候, 为单选框, checkbox为多选框.</span><br><span class="line">  - name是控件的名称, 在后台程序中可以索引到具体的值.</span><br><span class="line">  - checked 表示默认选择.</span><br><span class="line">  - **同一组单选框的名字**</span><br><span class="line">---</span><br><span class="line">- 下拉菜单: &lt;option value=&quot;向服务器提交的值&quot;&gt;显示在界面上的值&lt;/option&gt; </span><br><span class="line">- selected=&quot;selected&quot; 当时用selected属性时候, 如果设置为selected, 那么当前选项就是被默认选中的.</span><br><span class="line">- 在&lt;select&gt;标签中设置multiple=&quot;multiple&quot;属性, 就可以实现多选功能, 在 windows 操作系统下, 进行多选时按下Ctrl键同时进行单击(在 Mac下使用 Command +单击), 可以选择多个选项.</span><br><span class="line">---</span><br><span class="line">- &lt;input   type=&quot;submit&quot;   value=&quot;提交&quot;&gt; 其中value是按钮上显示的内容. **一般情况下value值都是提交到服务器的值, 但是这里是默认显示在按钮上的值.**</span><br><span class="line">- &lt;input type=&quot;reset&quot; value=&quot;重置&quot;&gt; 将文本框的输入信息重置, 使用这个按钮时候, 会将一个form中所有的输入信息都重置掉.</span><br><span class="line">---</span><br><span class="line">- label: label标签不会向用户呈现任何特殊效果, 它的作用是为鼠标用户改进了可用性. 如果你在 label 标签内点击文本, 就会触发此控件. 就是说，当用户单击选中该label标签时, 浏览器就会自动将焦点转到和标签相关的表单控件上(就自动选中和该label标签相关连的表单控件上).</span><br><span class="line">- &lt;label for=&quot;控件id名称&quot;&gt; **标签的 for 属性中的值应当与相关控件的 id 属性值一定要相同**</span><br><span class="line">- label for的主要意义是在我们点击标签内容时候, 会等同于将这次点击点击到了对应的输入空间当中去. ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/89249393.jpg)  </span><br><span class="line">相当于上图中的两个红框区域之中点击效果是相同的.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## CSS样式表基础知识:</span><br><span class="line"></span><br><span class="line">### 基础知识&amp;简介</span><br><span class="line">- 定义: CSS全称为“层叠样式表 (Cascading Style Sheets)”，它主要是用于定义HTML内容在浏览器内的显示样式，如文字大小、颜色、字体加粗等。</span><br><span class="line">- CSS的优势: 通过使用CSS, 可以仅仅定义一次具体的属性, 将这种属性应用到多种不同的地方, 有点类似于函数的封装.</span><br><span class="line">- CSS样式由选择符和声明组成, 而声明又由属性和值组成.  </span><br><span class="line">![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/50752629.jpg)</span><br><span class="line">- 声明: 在英文大括号&quot;&#123;&#125;&quot;中的的就是声明, 属性和值之间用英文冒号&quot;:&quot;分隔. 当有多条声明时, 中间可以英文分号&quot;;&quot;分隔. ```p&#123;font-size:12px;color:red;&#125;</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>就像在Html的注释一样, 在CSS中也有注释语句:用/*注释语句*/来标明（Html中使用\<!--注释语句-->)</p>
+</li>
+</ul>
+<h4 id="位置"><a href="#位置" class="headerlink" title="位置:"></a>位置:</h4><p>从CSS 样式代码插入的形式来看基本可以分为以下3种: 内联式, 嵌入式和外部式三种.</p>
+<ul>
+<li>内联式: css样式表就是把css代码直接写在现有的HTML标签中, 要写在元素的开始标签里. 并且css样式代码要写在style=””双引号中, 如果有多条css样式代码设置可以写在一起, 中间用分号隔开. <figure class="highlight plain"><figcaption><span>style</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- 嵌入式css样式, 就是可以把css样式代码写在```&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;```标签之间. **嵌入式css样式必须写在&lt;style&gt;&lt;/style&gt;之间, 并且一般情况下嵌入式css样式写在&lt;head&gt;&lt;/head&gt;之间.**</span><br><span class="line">- 外部式css样式(也可称为外联式)就是把css代码写一个单独的外部文件中, 这个css样式文件以“.css”为扩展名, 在**&lt;head&gt;**内(不是在&lt;style&gt;标签内)使用&lt;link&gt;标签将css样式文件链接到HTML文件内. ```&lt;link href=&quot;base.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;``` **rel=&quot;stylesheet&quot; type=&quot;text/css&quot; 是固定写法不可修改.**</span><br><span class="line">- 显示的优先性: 内联式 &gt; 嵌入式 &gt; 外部式. 在权值相同的情况下: 其实总结来说, 就是**就近原则**(离被设置元素越近优先级别越高).</span><br><span class="line"></span><br><span class="line">#### CSS语法知识:</span><br><span class="line">- 每一条的CSS语法定义如下:</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>选择器{<br>    样式;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- 类选择器: 类选择器在css样式编码中是最常用到的.```.类选器名称&#123;css样式代码;&#125;``` 通过类选择器可以为一个标签中的不同部分定义不同的样式表.  </span><br><span class="line">![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/44845898.jpg)</span><br><span class="line">- ID选择器都类似于类选择符，但也有一些重要的区别:</span><br><span class="line">  - 为标签设置id=&quot;ID名称&quot;, 而不是class=&quot;类名称&quot;</span><br><span class="line">  - ID选择符的前面是井号(#)号, 而不是英文圆点(.)</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/86742421.jpg)</span><br><span class="line"></span><br><span class="line">- 两种选择器的区别:</span><br><span class="line">  - ID选择器只能在文档中使用一次. 与类选择器不同, 在一个HTML文档中, ID选择器只能使用一次, 而且仅一次. 而类选择器可以使用多次.</span><br><span class="line">  - 可以使用类选择器词列表方法为一个元素同时设置多个样式. 我们可以为一个元素同时设多个样式, 但只可以用类选择器的方法实现, ID选择器是不可以的(不能使用 ID 词列表).</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/98649276.jpg)</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/81121330.jpg)</span><br><span class="line">- 子选择器: 还有一个比较有用的选择器子选择器，即大于符号(&gt;),用于选择指定标签元素的第一代子元素. 下图中会使得.food标签下的li标签被选中.</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/71621591.jpg)</span><br><span class="line">- 包含选择器，即加入空格,用于选择指定标签元素下的后辈元素:</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/76586045.jpg)</span><br><span class="line">  - 子选择器(child selector)仅是指它的直接后代, 或者你可以理解为作用于子元素的第一代后代. 而后代选择器是作用于所有子后代元素. **&gt;作用于元素的第一代后代，空格作用于元素的所有后代**</span><br><span class="line"></span><br><span class="line">- 通用选择器是功能最强大的选择器，它使用一个(*)号指定, 它的作用是匹配html中所有标签元素.</span><br><span class="line"></span><br><span class="line">- 伪选择符: ```a:hover&#123;color:red;&#125;``` 上面一行代码就是为 a 标签鼠标滑过的状态设置字体颜色变红. 这样就会使第一段文字内容中的“胆小如鼠”文字加入鼠标滑过字体颜色变为红色特效. **hover可以监听鼠标滑过动作!**</span><br><span class="line"></span><br><span class="line">- 分组选择符: ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/45451870.jpg)</span><br><span class="line"></span><br><span class="line">### CSS的继承, 层叠和特殊性</span><br><span class="line">- CSS中的某些特性(例如字体大小和颜色)是具有继承性的, 也就是应用在父类上的具体特征, 会自动的应用到子标签当中. 但是也有一些特征(例如边框线等)不具有继承性.</span><br><span class="line">- 权值: 浏览器是根据权值来判断使用哪种css样式的, 权值高的就使用哪种css样式.</span><br><span class="line">  - ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/35385751.jpg)</span><br><span class="line">- 可以使用!impotent标签来指定某一个样式拥有最高的权重.   </span><br><span class="line">![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-6/22149549.jpg)</span><br><span class="line">- 通常情况下, 用户自定义的显示设置高于Html中的一些设置, 但是!impotent是一个例外, 其拥有最高的权重.</span><br><span class="line"></span><br><span class="line">### CSS中的字体设置:</span><br><span class="line">- body&#123;font-family:&quot;宋体&quot;;&#125; 可以使用CSS设置字体的大小, 颜色, 样式. 但是一般不能使用过于偏门的字体.</span><br><span class="line">- body&#123;font-size:20px; color:red;&#125; 可以使用这两个属性设置字体的大小和颜色.</span><br><span class="line">- body&#123;font-weight:bold;&#125; 可以将文本设置为粗体. </span><br><span class="line">- body&#123;text-decoration:underline;&#125; 可以将文本设置为下划线</span><br><span class="line">- body&#123;font-style:italic&#125; 可以将文本设置成斜体</span><br><span class="line">- .oldPrice&#123;text-decoration:line-through;&#125; 为文字加上删除线</span><br><span class="line">- p&#123;text-indent:2em;&#125; 将p标签中的文字都缩进两个单位, 其中em是一个文字的宽度, 所以, 2em是文字的两倍间距.</span><br><span class="line">- p&#123;line-height:2em;&#125; 将p标签中的文字的行间距定义为字体高度的两倍.</span><br><span class="line">- p&#123;letter-spacing:20px;&#125; 将p标签中的字母之间的间距设置为20px</span><br><span class="line">- p&#123;word-spacing:20px&#125; 将p标签中的单词之间的间距设置为20px.</span><br><span class="line">- p&#123;text-align:center;&#125; 将p标签中的单词置于中间位置.</span><br><span class="line">- p&#123;text-align:left;&#125;和p&#123;text-align:right&#125; 可以分别将文字靠左放置和靠右放置.</span><br><span class="line">  </span><br><span class="line">### CSS盒子模型</span><br><span class="line">- 在CSS中, html中的标签大体被分为三种模型: 块状元素, 内联元素(又叫行内元素)和内联块状元素.</span><br><span class="line">  1. 常用的块状元素: ```&lt;div&gt;、&lt;p&gt;、&lt;h1&gt;...&lt;h6&gt;、&lt;ol&gt;、&lt;ul&gt;、&lt;dl&gt;、&lt;table&gt;、&lt;address&gt;、&lt;blockquote&gt; 、&lt;form&gt;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>内联元素有:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 常用的内联块状元素有: ```&lt;img&gt;、&lt;input&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="块状元素"><a href="#块状元素" class="headerlink" title="块状元素:"></a>块状元素:</h4><ul>
+<li><p>通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- 块状元素的特点: 每个块级元素都从新的一行开始, 并且其后的元素也另起一行. (真霸道，一个块级元素独占一行).</span><br><span class="line">- 元素的高度、宽度、行高以及顶和底边距都可设置.</span><br><span class="line">- 元素宽度在不设置的情况下，是它本身父容器的100%（和父元素的宽度一致），除非设定一个宽度</span><br><span class="line"></span><br><span class="line">#### 内联元素:</span><br><span class="line">- 块状元素也可以通过代码```&#123;display:inline&#125;```将元素设置为内联元素.</span><br><span class="line">- 特点: 和其他的元素分布在一行之上.</span><br><span class="line">- 元素的高度, 宽度及顶部和底部边距不可设置.</span><br><span class="line">- 元素的宽度就是它包含的文字或图片的宽度, 不可改变.</span><br><span class="line">- 内联元素之间有一个间距, 可以通过属性设置中的: ```float:left```来避免.  ![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-7/30083480.jpg)</span><br><span class="line"></span><br><span class="line">#### 内联块状元素:</span><br><span class="line">- 内联块状元素(inline-block)就是同时具备内联元素, 块状元素的特点, 代码```&#123;display:inline-block&#125;```就是将元素设置为内联块状元素. ```&lt;img&gt;, &lt;input&gt;```标签就是这种内联块状标签.</span><br><span class="line">- 和其他元素都在一行上, 元素的高度, 宽度, 行高以及顶和底边距都可设置.</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">三种元素之间的区别: 块状元素可以自由设置, 但是只能自成一行, 内联元素可以共享行空间, 但是宽度高度不可改变. 内联块状元素可以与其他元素在一行, 同时高度宽度均可以设置.</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### 盒子模型的边框:</span><br><span class="line">- ``` border-width:2px; border-style:solid; border-color:red;``` 盒子模型边框上的一些属性设置: 其中border-style主要有三种: dashed(虚线)| dotted(点线)| solid(实线)</span><br><span class="line">- 可以单独为盒子的某一个边框设置边界: ```border-bottom, border-top:1px solid red; border-right:1px solid red; border-left:1px solid red;</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>在盒子模型中, margin指的是外边界的距离, 而padding指的是盒子内部的距离.</p>
+</li>
+<li><p>为了让盒子中的文本设置为上下居中, 可以将文字的行距设置为和盒子的宽度相同, 这样文字就会自动居中. <figure class="highlight plain"><figcaption><span>center; line-height: 100px;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### CSS布局模型</span><br><span class="line">- CSS包含3种基本的布局模型, 用英文概括为: Flow, Layer 和 Float.</span><br><span class="line">- 流动模型,流动(Flow)是默认的网页布局模式. 也就是说网页在默认状态下的 HTML 网页元素都是根据流动模型来分布网页内容的.</span><br><span class="line">  - 块状元素都会在所处的包含元素内自上而下按顺序垂直延伸分布,因为在默认状态下, 块状元素的宽度都为100%. 实际上, 块状元素都会以行的形式占据位置.</span><br><span class="line">  - 在流动模型下, 内联元素都会在所处的包含元素内从左到右水平分布显示.(内联元素可不像块状元素这么霸道独占一行)</span><br><span class="line"></span><br><span class="line">- 如果想让块状元素水平显示就需要使用浮动模式:</span><br><span class="line">  - 使用浮动模式, 可以指定每一个块状元素分布在界面中的左右哪一个位置.</span><br><span class="line"></span><br><span class="line">- CSS中还有一种常用的定位格式: 层模型:</span><br><span class="line">  - 绝对定位(position: absolute) 相对定位(position: relative) 固定定位(position: fixed)</span><br><span class="line">  - 绝对定位: ```position:absolute; left:100px; top:50px;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>相对定位: <figure class="highlight plain"><figcaption><span>left:100px; top:50px;``` 虽然div元素相对于以前的位置产生了偏移, 但是div元素以前的位置还是保留着, 所以后面的span元素是显示在了div元素以前位置的后面.  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![](http://cloud-image-dong.oss-cn-qingdao.aliyuncs.com/18-11-7/59835587.jpg)</span><br><span class="line">- 固定位置: fixed: 表示固定定位, 与absolute定位类型类似, 但它的相对移动的坐标是视图(屏幕内的网页窗口)本身. ```position:fixed; left:100px; top:50px;</span><br></pre></td></tr></table></figure></p>
+</li>
+<li><p>将固定位置和相对位置结合使用: 主要有三个要求: 1. 参照定位的元素必须是相对定位元素的前辈元素. 2. 参照定位的元素必须加入position:relative; 3. 位元素加入position:absolute, 便可以使用top, bottom, left, right来进行偏移定位了.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="标签定位"><a href="#标签定位" class="headerlink" title="标签定位:"></a>标签定位:</h3><ul>
+<li>当被设置元素为 块状元素 时用 text-align：center 就不起作用了，这时也分两种情况：定宽块状元素和不定宽块状元素:<ul>
+<li>满足定宽和块状两个条件的元素是可以通过设置“左右margin”值为“auto”来实现居中的. <code>margin:auto;</code></li>
+<li><ol>
+<li>加入 table 标签. 2. 设置 display:inline 方法:与第一种类似,显示类型设为 行内元素，进行不定宽元素的属性设置. 3. 设置 position:relative 和 left:50%:利用相对定位的方式，将元素向左偏移50% ，即达到居中的目的.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>文字上下居中: line-height 与 font-size 的计算值之差，在 CSS 中成为“行间距”。分为两半，分别加到一个文本行内容的顶部和底部.</li>
+<li>为了使图片上下居中, 可以有两种方法: <ul>
+<li>通过添加一个table的方式, table中的td自动含有: vertical-align：middle 属性.</li>
+<li>在 chrome, firefox 及 IE8 以上的浏览器下可以设置块级元素的 display 为 table-cell(设置为表格单元显示)，激活 vertical-align 属性.</li>
+</ul>
+</li>
+<li><code>1. position : absolute 2. float : left 或 float:right</code>只要html代码中出现以上两句之一，元素的display显示类型就会自动变为以 display:inline-block（块状元素）的方式显示，当然就可以设置元素的 width 和 height 了，且默认宽度不占满父元素</li>
+</ul>
+<hr>
+<p>使用百分比来设置行高时候, 对比的对象是字体的大小.</p>
+<hr>
+</script></title></head></li></ol>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础学习/" rel="tag"># 基础学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/04/focalLoss笔记/" rel="next" title="focalLoss笔记">
+                <i class="fa fa-chevron-left"></i> focalLoss笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weidong Zhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端知识基础"><span class="nav-number">1.</span> <span class="nav-text">前端知识基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Html基础语法"><span class="nav-number">1.1.</span> <span class="nav-text">Html基础语法:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text"> 是标题标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Html的基本结构"><span class="nav-number">2.0.1.</span> <span class="nav-text">Html的基本结构:</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weidong Zhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
